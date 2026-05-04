@@ -1229,11 +1229,18 @@ export default function DashboardPage() {
                     </div>
 
                     <div className="flex items-center gap-4">
+                        <button 
+                            onClick={() => window.print()}
+                            className="hidden md:flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-full text-xs font-bold transition-colors no-print"
+                        >
+                            <Download className="w-3.5 h-3.5" />
+                            Export PDF
+                        </button>
                         <div className="hidden md:flex flex-col items-end mr-2">
                             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">Global Edition</span>
                             <span className="text-[10px] font-bold text-indigo-600/60 uppercase tracking-widest mt-1">2025 Intelligence</span>
                         </div>
-                        {name && <div className="w-8 h-8 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-xs ring-2 ring-white shadow-sm">{name.charAt(0).toUpperCase()}</div>}
+                        {name && <div className="w-8 h-8 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-xs ring-2 ring-white shadow-sm no-print">{name.charAt(0).toUpperCase()}</div>}
                     </div>
                 </nav>
             </header>
