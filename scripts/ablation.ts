@@ -7,6 +7,8 @@
  * Both go through localhost:3000 so they have env access.
  */
 
+export {};
+
 const BASE_URL = 'http://localhost:3000';
 
 interface AblationProfile {

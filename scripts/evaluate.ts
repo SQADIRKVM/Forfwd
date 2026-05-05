@@ -5,6 +5,8 @@
  * Target: n ≥ 10 successful completions for publishable aggregate statistics.
  */
 
+export {};
+
 const BASE_URL = 'http://localhost:3000';
 
 interface TestProfile {
