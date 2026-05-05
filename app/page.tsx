@@ -6,6 +6,7 @@ import {
   Search, Globe, Network, Github, Twitter, Linkedin, Mail, PlayCircle, ExternalLink, Lock, CheckCircle2, TrendingUp, BookOpen, GraduationCap, Briefcase, RefreshCw, ChevronDown
 } from 'lucide-react';
 import Link from 'next/link';
+import { Show, UserButton, SignInButton } from "@clerk/nextjs";
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { useRef, useState } from 'react';
 
@@ -117,11 +118,21 @@ export default function LandingPage() {
             </div>
 
             <div className="flex items-center gap-4">
-              <Link href="/onboarding">
-                <Button className="bg-white hover:bg-zinc-200 text-black rounded-full px-6 h-10 transition-all font-medium text-sm">
-                  Start Free
-                </Button>
-              </Link>
+              <Show when="signed-out">
+                <SignInButton mode="modal">
+                  <Button className="bg-white hover:bg-zinc-200 text-black rounded-full px-6 h-10 transition-all font-medium text-sm">
+                    Sign In
+                  </Button>
+                </SignInButton>
+              </Show>
+              <Show when="signed-in">
+                <Link href="/onboarding">
+                  <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-full px-6 h-10 transition-all font-medium text-sm mr-2">
+                    Dashboard
+                  </Button>
+                </Link>
+                <UserButton />
+              </Show>
             </div>
           </nav>
         </header>
@@ -140,7 +151,7 @@ export default function LandingPage() {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 mb-8 text-sm font-medium text-zinc-300 backdrop-blur-md shadow-xl"
             >
               <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              No sign-up required. 100% free.
+              Secure, Private, and AI-Powered.
             </motion.div>
 
             <motion.h1 
@@ -168,12 +179,22 @@ export default function LandingPage() {
               transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
               className="flex justify-center items-center flex-col sm:flex-row gap-4"
             >
-              <Link href="/onboarding">
-                <Button className="h-14 px-10 rounded-full font-medium text-base bg-white text-black hover:bg-zinc-200 transition-all flex items-center justify-center gap-2 group shadow-[0_0_40px_rgba(255,255,255,0.1)] hover:shadow-[0_0_60px_rgba(255,255,255,0.2)]">
-                  Start Your Assessment
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
+              <Show when="signed-out">
+                <SignInButton mode="modal">
+                  <Button className="h-14 px-10 rounded-full font-medium text-base bg-white text-black hover:bg-zinc-200 transition-all flex items-center justify-center gap-2 group shadow-[0_0_40px_rgba(255,255,255,0.1)] hover:shadow-[0_0_60px_rgba(255,255,255,0.2)]">
+                    Sign In to Start
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </SignInButton>
+              </Show>
+              <Show when="signed-in">
+                <Link href="/onboarding">
+                  <Button className="h-14 px-10 rounded-full font-medium text-base bg-white text-black hover:bg-zinc-200 transition-all flex items-center justify-center gap-2 group shadow-[0_0_40px_rgba(255,255,255,0.1)] hover:shadow-[0_0_60px_rgba(255,255,255,0.2)]">
+                    Start Your Assessment
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
+              </Show>
               <Link href="/dashboard">
                 <Button variant="outline" className="h-14 px-10 rounded-full font-medium text-base border-white/10 text-white bg-white/5 hover:bg-white/10 backdrop-blur-md transition-all flex items-center justify-center gap-2">
                   <PlayCircle className="w-5 h-5 text-zinc-400" />

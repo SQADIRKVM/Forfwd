@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ClerkProvider } from "@clerk/nextjs";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/shared/SmoothScroll";
@@ -26,9 +27,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-50 text-slate-900 overflow-x-hidden`}>
-        <SmoothScroll>
-          {children}
-        </SmoothScroll>
+        <ClerkProvider>
+          <SmoothScroll>
+            {children}
+          </SmoothScroll>
+        </ClerkProvider>
       </body>
     </html>
   );
