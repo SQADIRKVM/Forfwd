@@ -45,8 +45,8 @@ export async function POST(req: Request) {
 
         return Response.json({ success: true, data: result.object.questions });
 
-    } catch (error) {
+    } catch (error: any) {
         console.error("Question Generation Error:", error);
-        return Response.json({ success: false, error: 'Failed to generate questions' }, { status: 500 });
+        return Response.json({ success: false, error: error?.message || 'Failed to generate questions' }, { status: 500 });
     }
 }

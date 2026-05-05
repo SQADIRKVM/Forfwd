@@ -8,7 +8,7 @@ import {
     CheckCircle2, ArrowRight, ArrowLeft, Compass, Sparkles, RotateCcw, ChevronDown,
     ChevronUp, Bot, User, AlertTriangle, ExternalLink, Rocket, Network,
     BookOpen, Award, Search, Users, PenLine, ShieldCheck, Landmark,
-    Link2, FileText, LineChart, FileCheck2, ArrowUp, X, Zap, Globe, HelpCircle
+    Link2, FileText, LineChart, FileCheck2, ArrowUp, X, Zap, Globe, HelpCircle, Download
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';

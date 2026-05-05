@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CareerX — Final Project Review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --fg: #0f172a;
+      --primary: #4f46e5;
+      --primary-soft: rgba(79, 70, 229, 0.12);
+      --primary-mid: rgba(79, 70, 229, 0.22);
+      --glass: rgba(255, 255, 255, 0.55);
+      --glass-border: rgba(79, 70, 229, 0.18);
+      --muted: #475569;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "DM Sans", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.55;
+      font-size: 15px;
+    }
+    .noise {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      z-index: 0;
+    }
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+    header.hero {
+      text-align: center;
+      padding: 2rem 1.5rem 2.25rem;
+      border-radius: 1.25rem;
+      background: var(--glass);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 8px 32px rgba(79, 70, 229, 0.08);
+      margin-bottom: 2rem;
+    }
+    header.hero h1 {
+      margin: 0 0 0.35rem;
+      font-size: clamp(1.65rem, 4vw, 2.15rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--primary);
+    }
+    header.hero .sub {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    .badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      border: 1px solid var(--glass-border);
+    }
+    section {
+      margin-bottom: 1.75rem;
+      padding: 1.35rem 1.5rem;
+      border-radius: 1rem;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: 0 4px 24px rgba(15, 23, 42, 0.04);
+    }
+    section h2 {
+      margin: 0 0 0.75rem;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    section h2 span.num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.65rem;
+      height: 1.65rem;
+      border-radius: 0.45rem;
+      background: var(--primary-mid);
+      color: var(--primary);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    h3 {
+      margin: 1rem 0 0.4rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--fg);
+    }
+    p { margin: 0 0 0.65rem; color: var(--fg); }
+    p:last-child { margin-bottom: 0; }
+    ul {
+      margin: 0.35rem 0 0;
+      padding-left: 1.15rem;
+      color: var(--fg);
+    }
+    li { margin-bottom: 0.35rem; }
+    li strong { color: var(--primary); }
+    .muted { color: var(--muted); font-size: 0.9rem; }
+    code, .mono {
+      font-family: ui-monospace, "Cascadia Code", monospace;
+      font-size: 0.82em;
+      background: var(--primary-soft);
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      color: var(--primary);
+    }
+    pre.flow {
+      margin: 0.75rem 0 0;
+      padding: 1rem 1.1rem;
+      border-radius: 0.65rem;
+      background: rgba(15, 23, 42, 0.92);
+      color: #e2e8f0;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      overflow-x: auto;
+      border: 1px solid var(--glass-border);
+    }
+    pre.flow .dim { color: #64748b; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.5rem;
+      font-size: 0.88rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.55rem 0.5rem;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+    }
+    th { color: var(--primary); font-weight: 600; }
+    .formula {
+      margin: 0.6rem 0;
+      padding: 0.85rem 1rem;
+      border-radius: 0.55rem;
+      background: var(--primary-soft);
+      border: 1px dashed var(--glass-border);
+      font-family: ui-monospace, monospace;
+      font-size: 0.85rem;
+    }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    @media print {
+      .noise { display: none; }
+      section, header.hero { break-inside: avoid; box-shadow: none; }
+      body { background: white; }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="wrap">
+    <header class="hero">
+      <h1>CareerX</h1>
+      <p class="sub">Decentralized AI career intelligence — live web research + structured generation</p>
+      <p class="sub muted" style="margin-top:0.5rem">Final project review · Architecture, RAG, Zod, SearXNG, Docker</p>
+      <div class="badge-row">
+        <span class="badge">RAG</span>
+        <span class="badge">SearXNG</span>
+        <span class="badge">Zod</span>
+        <span class="badge">Docker</span>
+        <span class="badge">Next.js</span>
+        <span class="badge">Gemini (AI SDK)</span>
+      </div>
+    </header>
+
+    <section id="overview">
+      <h2><span class="num">1</span> What this project is</h2>
+      <p><strong>CareerX</strong> is a web application that turns a student’s questionnaire answers into a rich, personalized career dashboard: pathways, universities, certifications, jobs with portal links, a five-year skill roadmap, optional scholarships or startup resources, and citations to real URLs gathered from the live internet.</p>
+      <p class="muted">Unlike a quiz that only outputs static templates, this system <strong>retrieves current evidence</strong> from search results and feeds that text into a large language model (LLM), then forces the model to answer in a strict JSON shape. That design is the core of <strong>Retrieval-Augmented Generation (RAG)</strong>.</p>
+    </section>
+
+    <section id="algorithm">
+      <h2><span class="num">2</span> Main algorithm: Retrieval-Augmented Generation (RAG)</h2>
+      <p><strong>RAG</strong> means: <em>first retrieve relevant documents from an external source, then generate an answer that is grounded in those documents.</em> Pure LLMs can hallucinate facts; RAG reduces that by tying outputs to retrieved text.</p>
+      <p>In this codebase, RAG is implemented end-to-end in <span class="mono">app/api/generate-dashboard/route.ts</span>:</p>
+      <ol>
+        <li><strong>Plan (LLM)</strong> — Gemini generates <span class="mono">profileSummary</span> plus <strong>6–8 diverse search queries</strong> (Reddit, LinkedIn, salaries, local institutions, next-degree programs, etc.). Current year is injected server-side so the model does not invent outdated years.</li>
+        <li><strong>Retrieve (SearXNG)</strong> — Each query runs against self-hosted SearXNG with up to <strong>5 pages</strong> per query; results are merged, <strong>deduplicated by URL</strong>, and filtered (e.g. dictionary sites blocked).</li>
+        <li><strong>Deep retrieval (scraper)</strong> — The top <strong>10</strong> URLs are fetched and full page text is extracted (“deep RAG”). Many more results stay as <strong>snippets only</strong> for breadth.</li>
+        <li><strong>Generate (LLM + schema)</strong> — All retrieved material is passed into Gemini with strict instructions (currency, location, education-level rules, citation rules). Output must match <span class="mono">DashboardDataSchema</span> via <span class="mono">generateObject</span>.</li>
+      </ol>
+      <p class="muted"><strong>Safeguard:</strong> If fewer than 5 unique results are returned, the API responds with an error instead of fabricating a dashboard — explicitly to avoid hallucination when search is down or rate-limited.</p>
+    </section>
+
+    <section id="pipeline">
+      <h2><span class="num">3</span> Data-flow diagram (conceptual)</h2>
+      <pre class="flow"><span class="dim">User questionnaire</span>
+        → <span class="dim">Gemini: query planner</span>
+        → <span class="dim">SearXNG (multi-query, multi-page)</span>
+        → <span class="dim">Dedupe + domain filters</span>
+        → <span class="dim">HTML scraper (top 10 URLs)</span>
+        → <span class="dim">Gemini: synthesis + Zod-shaped JSON</span>
+        → <span class="dim">Dashboard UI (+ chat grounded in dashboard)</span></pre>
+    </section>
+
+    <section id="match">
+      <h2><span class="num">4</span> Career pathway scoring (explainable heuristic)</h2>
+      <p>The synthesis prompt defines a <strong>weighted alignment formula</strong> so match percentages are not arbitrary prose:</p>
+      <div class="formula">Score = 0.4 × Skill_Match + 0.3 × Market_Demand + 0.3 × User_Preference</div>
+      <ul>
+        <li><strong>Skill_Match (0–100)</strong> — Alignment between the user’s background and pathway requirements.</li>
+        <li><strong>Market_Demand (0–100)</strong> — Inferred from retrieved labor-market and trend signals in the research text.</li>
+        <li><strong>User_Preference (0–100)</strong> — Fit to questionnaire answers, location, and stated goals.</li>
+      </ul>
+      <p class="muted">This is a transparent rubric for reviewers: scores are guided by explicit weights even though individual sub-scores are estimated by the model from retrieved context.</p>
+    </section>
+
+    <section id="zod">
+      <h2><span class="num">5</span> What is Zod? Why use it?</h2>
+      <p><strong>Zod</strong> is a TypeScript-first schema library: you describe the <em>shape and rules</em> of data (strings, numbers, enums, nested objects, arrays, min/max lengths, etc.). At runtime it can validate unknown JSON; at compile time <span class="mono">z.infer</span> gives you accurate TypeScript types.</p>
+      <h3>Why Zod in CareerX?</h3>
+      <ul>
+        <li><strong>Structured LLM outputs</strong> — The Vercel AI SDK’s <span class="mono">generateObject</span> uses your Zod schema (via JSON Schema conversion) so Gemini returns data that fits <span class="mono">DashboardDataSchema</span>: careers, universities, jobs, roadmaps, sources, optional persona blocks.</li>
+        <li><strong>Fewer broken UIs</strong> — The frontend expects consistent fields (e.g. every job can have <span class="mono">jobPortalLinks</span>). Validated objects prevent random missing keys from crashing components.</li>
+        <li><strong>Single source of truth</strong> — Types and validation live together in <span class="mono">lib/schemas.ts</span> (questionnaire types, dashboard types, ATS scan schema in <span class="mono">scan-resume</span>).</li>
+      </ul>
+      <p class="muted">In short: <strong>Zod turns “free-form AI text” into reliable, typed JSON</strong> your app can render safely.</p>
+    </section>
+
+    <section id="searxng">
+      <h2><span class="num">6</span> What is SearXNG? Why not Google-only?</h2>
+      <p><strong>SearXNG</strong> is an open-source <strong>metasearch</strong> engine: one query can aggregate results from multiple backends (configurable), without locking you into a single vendor’s API.</p>
+      <h3>How this project uses it</h3>
+      <ul>
+        <li>HTTP POST to <span class="mono">/search</span> with form fields for query, language, pagination (<span class="mono">pageno</span>).</li>
+        <li>HTML responses are parsed with <strong>Cheerio</strong> to extract titles, URLs, and snippets.</li>
+        <li><strong>In-memory cache</strong> (~6 hours) avoids hammering the instance for repeated queries.</li>
+        <li><strong>Staggered queries</strong> and delays between pages reduce burst rate limits.</li>
+      </ul>
+      <p class="muted">Self-hosting matters for demos and research: you control rate limits, privacy, and availability instead of depending on a fragile public instance.</p>
+    </section>
+
+    <section id="docker">
+      <h2><span class="num">7</span> Docker, containers, and why they appear in this project</h2>
+      <p><strong>Containerization</strong> packages an application plus its dependencies into an isolated, repeatable unit called a <strong>container</strong>. It runs consistently on any machine that has a container runtime (e.g. Docker).</p>
+      <h3>What is Docker?</h3>
+      <p><strong>Docker</strong> is a platform to build, ship, and run containers. <strong>Docker Compose</strong> (your <span class="mono">docker-compose.yml</span>) declares services, ports, volumes, and environment variables so one command starts SearXNG the same way every time.</p>
+      <h3>Why Docker for SearXNG here?</h3>
+      <ul>
+        <li><strong>Fast setup</strong> — <span class="mono">docker compose up -d</span> pulls <span class="mono">searxng/searxng:latest</span> and exposes port <strong>8080</strong>.</li>
+        <li><strong>Configurable instance</strong> — Local folder <span class="mono">./searxng</span> is mounted to <span class="mono">/etc/searxng</span> for settings.</li>
+        <li><strong>Limiter disabled for development</strong> — <span class="mono">SEARXNG_DISABLE_LIMITER=1</span> supports heavier automated querying during research (document trade-offs for production).</li>
+        <li><strong>Hardening hints</strong> — Compose drops Linux capabilities (<span class="mono">cap_drop: ALL</span>) and only adds what is needed — good talking point for security-aware reviewers.</li>
+      </ul>
+    </section>
+
+    <section id="stack">
+      <h2><span class="num">8</span> Technology stack (as implemented)</h2>
+      <table>
+        <thead>
+          <tr><th>Layer</th><th>Technology</th><th>Role</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Framework</td><td>Next.js (App Router)</td><td>UI + API routes (<span class="mono">app/api/...</span>)</td></tr>
+          <tr><td>LLM</td><td>Google Gemini via <span class="mono">@ai-sdk/google</span></td><td>Planning + synthesis (<span class="mono">gemini-3-flash-preview</span> in code)</td></tr>
+          <tr><td>Orchestration</td><td>Vercel AI SDK (<span class="mono">ai</span>)</td><td><span class="mono">generateObject</span>, streaming chat</td></tr>
+          <tr><td>Validation</td><td>Zod + zod-to-json-schema</td><td>Structured outputs & TS types</td></tr>
+          <tr><td>Search</td><td>SearXNG (Docker)</td><td>Metasearch retrieval</td></tr>
+          <tr><td>Parsing</td><td>Cheerio</td><td>Parse SearXNG HTML results</td></tr>
+          <tr><td>Scraping</td><td><span class="mono">fetch</span> + text cleanup</td><td>Deep page content for top URLs</td></tr>
+          <tr><td>UI</td><td>React 19, Tailwind 4, Framer Motion, Lenis</td><td>Layout, motion, smooth scroll</td></tr>
+        </tbody>
+      </table>
+      <p class="muted">README badges mention Gemini 1.5 Flash; the repository’s API routes currently specify <span class="mono">gemini-3-flash-preview</span> — mention both as “Google Gemini family via AI SDK” if asked.</p>
+    </section>
+
+    <section id="other">
+      <h2><span class="num">9</span> Other features reviewers often ask about</h2>
+      <ul>
+        <li><strong>Stateless / privacy angle</strong> — Session data can live client-side (<span class="mono">sessionStorage</span>) without a central user database; scraping uses timeouts and rotating User-Agents (see README).</li>
+        <li><strong>Chat endpoint</strong> — <span class="mono">app/api/chat/route.ts</span> streams replies grounded in the generated dashboard JSON context.</li>
+        <li><strong>Resume / ATS scan</strong> — Separate API uses Zod (<span class="mono">AtsResultSchema</span>) for match score, missing keywords, and short feedback.</li>
+        <li><strong>Evaluation / ablation</strong> — Scripts compare LLM-only vs full RAG pipeline; JSON results in repo document methodology.</li>
+      </ul>
+    </section>
+
+    <section id="closing">
+      <h2><span class="num">10</span> One-minute verbal summary (for Q&amp;A)</h2>
+      <p>“We built CareerX: users answer a smart questionnaire; Gemini plans targeted searches; our Docker-hosted SearXNG retrieves hundreds of live results; we scrape the top pages for depth; then Gemini synthesizes a structured dashboard. Zod ensures the model output always matches our schema, which keeps the UI stable and reduces hallucinations. RAG is the algorithm that connects retrieval to generation.”</p>
+    </section>
+
+    <footer>
+      Open this file in any browser or print to PDF for slides. Source: CareerX codebase (<span class="mono">main-project-searxng</span>).
+    </footer>
+  </div>
+</body>
+</html>
