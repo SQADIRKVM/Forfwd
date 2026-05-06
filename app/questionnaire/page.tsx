@@ -2,9 +2,10 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { use, useState, useEffect, useMemo, useRef } from 'react';
-import { Compass, ArrowRight, ArrowLeft, Loader2, Sparkles, AlertCircle, CheckCircle2, ChevronRight, MessageSquare, Star, SlidersHorizontal, Layers, X } from 'lucide-react';
+import { use, useState, useEffect, useRef } from 'react';
+import { Compass, ArrowRight, ArrowLeft, Loader2, AlertCircle, CheckCircle2, MessageSquare, X } from 'lucide-react';
 import Link from 'next/link';
+import { UserAccountNav } from '@/components/shared/UserAccountNav';
 
 type QuestionType = 'multi_select' | 'yes_no' | 'rating' | 'slider' | 'text';
 type QuestionSection = 'academic' | 'interests' | 'skills' | 'personality' | 'goals' | 'constraints';
@@ -21,11 +22,18 @@ interface GeneratedQuestion {
     helpText?: string;
 }
 
+import { useOnboardingStore } from '@/lib/store';
+
 export default function QuestionnairePage({ searchParams }: { searchParams: Promise<{ type?: string }> }) {
     const params = use(searchParams);
     const router = useRouter();
-    const typeParam = params.type || (typeof window !== 'undefined' ? localStorage.getItem('student_type') : null) || 'general';
-    const userName = typeof window !== 'undefined' ? localStorage.getItem('user_name') : 'Student';
+    
+    const storeUserName = useOnboardingStore(state => state.userName);
+    const storeStudentType = useOnboardingStore(state => state.studentType);
+    const setStoreQuestionnaireAnswers = useOnboardingStore(state => state.setQuestionnaireAnswers);
+
+    const typeParam = params.type || storeStudentType || 'general';
+    const userName = storeUserName || 'Student';
 
     const [questions, setQuestions] = useState<GeneratedQuestion[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -33,7 +41,7 @@ export default function QuestionnairePage({ searchParams }: { searchParams: Prom
     const abortControllerRef = useRef<AbortController | null>(null);
 
     const [currentStep, setCurrentStep] = useState(0);
-    const [answers, setAnswers] = useState<Record<string, any>>({});
+    const [answers, setAnswers] = useState<Record<string, string | number | string[]>>({});
     
     // For Other/Custom text inputs on multi-select
     const [showOtherInput, setShowOtherInput] = useState<Record<string, boolean>>({});
@@ -62,9 +70,10 @@ export default function QuestionnairePage({ searchParams }: { searchParams: Prom
                     setQuestions(json.data);
                     setIsLoading(false);
                 }
-            } catch (err: any) {
+            } catch (err) {
                 if (!controller.signal.aborted) {
-                    setError(err.message);
+                    const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
+                    setError(errorMessage);
                     setIsLoading(false);
                 }
             }
@@ -156,10 +165,10 @@ export default function QuestionnairePage({ searchParams }: { searchParams: Prom
             });
 
             finalAnswers._role = typeParam;
-            const onboardingType = localStorage.getItem('student_type') ?? typeParam;
+            const onboardingType = storeStudentType || typeParam;
             finalAnswers._currentEducationLevel = onboardingType;
 
-            localStorage.setItem('questionnaire_answers', JSON.stringify(finalAnswers));
+            setStoreQuestionnaireAnswers(finalAnswers);
             router.push('/dashboard');
         }
     };
@@ -178,13 +187,13 @@ export default function QuestionnairePage({ searchParams }: { searchParams: Prom
 
     if (isLoading) {
         return (
-            <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center">
-                <Loader2 className="w-12 h-12 text-indigo-600 animate-spin mb-6" />
-                <h2 className="text-xl font-bold text-slate-900 mb-2">Analyzing your profile...</h2>
-                <p className="text-slate-500 font-medium">Generating highly personalized questions for you.</p>
+            <div className="relative z-10 min-h-screen bg-slate-50 dark:bg-transparent text-slate-900 dark:text-zinc-50 flex flex-col items-center justify-center font-sans">
+                <Loader2 className="w-12 h-12 text-indigo-600 dark:text-indigo-400 animate-spin mb-6" />
+                <h2 className="text-xl font-bold text-slate-900 dark:text-zinc-50 mb-2">Analyzing your profile...</h2>
+                <p className="text-slate-500 dark:text-zinc-400 font-medium">Generating highly personalized questions for you.</p>
                 <button 
                     onClick={handleStop}
-                    className="mt-10 px-8 py-3 rounded-2xl border-2 border-rose-200 text-rose-600 font-bold text-sm bg-white hover:bg-rose-50 hover:border-rose-300 transition-all flex items-center gap-2 active:scale-95"
+                    className="mt-10 px-8 py-3 rounded-2xl border-2 border-rose-200 dark:border-rose-900/30 text-rose-600 dark:text-rose-400 font-bold text-sm bg-white dark:bg-white/5 hover:bg-rose-50 dark:hover:bg-rose-950/20 hover:border-rose-300 dark:hover:border-rose-900/50 transition-all flex items-center gap-2 active:scale-95"
                 >
                     <X className="w-4 h-4" /> Stop Generation
                 </button>
@@ -194,11 +203,11 @@ export default function QuestionnairePage({ searchParams }: { searchParams: Prom
 
     if (error || !questions.length) {
         return (
-            <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-6 text-center">
-                <AlertCircle className="w-12 h-12 text-rose-500 mb-6" />
-                <h2 className="text-xl font-bold text-slate-900 mb-2">Oops, something went wrong</h2>
-                <p className="text-slate-500 mb-8">{error || "Couldn't generate questions."}</p>
-                <button onClick={() => window.location.reload()} className="px-6 py-3 bg-slate-900 text-white rounded-xl font-medium">
+            <div className="relative z-10 min-h-screen bg-slate-50 dark:bg-transparent text-slate-900 dark:text-zinc-50 flex flex-col items-center justify-center p-6 text-center font-sans">
+                <AlertCircle className="w-12 h-12 text-rose-500 dark:text-rose-400 mb-6" />
+                <h2 className="text-xl font-bold text-slate-900 dark:text-zinc-50 mb-2">Oops, something went wrong</h2>
+                <p className="text-slate-500 dark:text-zinc-400 mb-8">{error || "Couldn't generate questions."}</p>
+                <button onClick={() => window.location.reload()} className="px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl font-medium shadow-lg hover:bg-slate-800 dark:hover:bg-zinc-100 transition-all">
                     Try Again
                 </button>
             </div>
@@ -206,38 +215,41 @@ export default function QuestionnairePage({ searchParams }: { searchParams: Prom
     }
 
     return (
-        <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans selection:bg-indigo-100 pb-36">
+        <div className="relative z-10 min-h-screen bg-slate-50 dark:bg-transparent text-slate-900 dark:text-zinc-50 flex flex-col font-sans selection:bg-indigo-100 pb-36">
             {/* Header */}
-            <header className="w-full bg-white/80 backdrop-blur-md border-b border-slate-200 px-6 py-4 flex items-center justify-between sticky top-0 z-50">
+            <header className="w-full bg-white/80 dark:bg-black/40 backdrop-blur-md border-b border-slate-200 dark:border-white/5 px-6 py-4 flex items-center justify-between sticky top-0 z-50">
                 <div className="flex items-center gap-4">
                     <Link href="/" className="flex items-center gap-2 group">
                         <div className="w-8 h-8 rounded bg-indigo-600 flex items-center justify-center shadow-indigo-200 shadow-sm transition-transform group-hover:rotate-6">
                             <Compass className="w-5 h-5 text-white" />
                         </div>
-                        <span className="text-xl font-bold tracking-tight text-slate-900 hidden sm:block">CareerX</span>
+                        <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-zinc-50 hidden sm:block">CareerX</span>
                     </Link>
-                    <div className="h-6 w-px bg-slate-200 mx-1 hidden sm:block" />
-                    <button onClick={() => router.back()} className="text-sm font-bold text-slate-500 hover:text-indigo-600 transition-colors flex items-center gap-1.5">
+                    <div className="h-6 w-px bg-slate-200 dark:bg-white/10 mx-1 hidden sm:block" />
+                    <button onClick={() => router.back()} className="text-sm font-bold text-slate-500 dark:text-zinc-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center gap-1.5">
                         <ArrowLeft className="w-4 h-4" />
                         Back
                     </button>
                 </div>
-                <div className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
-                    Step {currentStep + 1} of {questions.length}
+                <div className="flex items-center gap-3">
+                    <div className="text-xs font-semibold text-slate-400 dark:text-zinc-500 uppercase tracking-widest">
+                        Step {currentStep + 1} of {questions.length}
+                    </div>
+                    <UserAccountNav />
                 </div>
             </header>
 
             {/* Progress */}
-            <div className="w-full h-0.5 bg-slate-200">
+            <div className="w-full h-0.5 bg-slate-200 dark:bg-white/10">
                 <motion.div animate={{ width: `${progress}%` }} transition={{ duration: 0.5, ease: 'easeOut' }} className="h-full bg-indigo-600" />
             </div>
 
             {/* Role Context */}
             <div className="flex justify-center pt-8 mb-4">
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white border border-slate-200 rounded-full shadow-sm">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full shadow-sm">
                     <span className="w-2 h-2 rounded-full bg-indigo-500 shrink-0" />
-                    <span className="text-xs font-semibold text-slate-500">
-                        Profile: <span className="text-slate-900 font-bold">{typeParam}</span>
+                    <span className="text-xs font-semibold text-slate-500 dark:text-zinc-400">
+                        Profile: <span className="text-slate-900 dark:text-zinc-200 font-bold">{typeParam}</span>
                     </span>
                 </div>
             </div>
@@ -254,14 +266,14 @@ export default function QuestionnairePage({ searchParams }: { searchParams: Prom
                     >
                         {/* Question Title Layer */}
                         <div className="mb-10 text-center md:text-left">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-xs font-bold uppercase tracking-wider mb-4 border border-indigo-100">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-full text-xs font-bold uppercase tracking-wider mb-4 border border-indigo-100 dark:border-indigo-500/20">
                                 {step.section.replace('_', ' ')}
                             </div>
-                            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 leading-tight mb-3">
+                            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-zinc-50 leading-tight mb-3">
                                 {step.text}
                             </h1>
                             {step.helpText && (
-                                <p className="text-slate-500 font-medium text-lg border-l-2 border-indigo-200 pl-4 py-1">
+                                <p className="text-slate-500 dark:text-zinc-400 font-medium text-lg border-l-2 border-indigo-200 dark:border-indigo-500/30 pl-4 py-1">
                                     {step.helpText}
                                 </p>
                             )}
@@ -283,14 +295,14 @@ export default function QuestionnairePage({ searchParams }: { searchParams: Prom
                                                 onClick={() => handleSelectOption(step.id, opt, isMulti)}
                                                 className={`relative flex items-center p-5 rounded-2xl border-2 transition-all text-left
                                                     ${isSelected 
-                                                    ? 'border-indigo-600 bg-indigo-50 ring-1 ring-indigo-600/20' 
-                                                    : 'border-slate-200 bg-white hover:border-slate-300 hover:shadow-sm'}`}
+                                                    ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-600/10 ring-1 ring-indigo-600/20 dark:ring-indigo-500/10' 
+                                                    : 'border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 hover:border-slate-300 dark:hover:border-white/20 hover:shadow-sm'}`}
                                             >
                                                 <div className={`w-6 h-6 rounded-md mr-4 shrink-0 flex items-center justify-center transition-colors border
-                                                    ${isSelected ? 'bg-indigo-600 border-indigo-600 text-white' : 'border-slate-300 text-transparent'}`}>
+                                                    ${isSelected ? 'bg-indigo-600 border-indigo-600 text-white' : 'border-slate-300 dark:border-white/20 text-transparent'}`}>
                                                     <CheckCircle2 className="w-4 h-4" />
                                                 </div>
-                                                <span className={`font-semibold ${isSelected ? 'text-indigo-900' : 'text-slate-700'}`}>
+                                                <span className={`font-semibold ${isSelected ? 'text-indigo-900 dark:text-indigo-300' : 'text-slate-700 dark:text-zinc-300'}`}>
                                                     {opt}
                                                 </span>
                                             </button>
@@ -302,12 +314,12 @@ export default function QuestionnairePage({ searchParams }: { searchParams: Prom
                                         <button 
                                             onClick={() => toggleOther(step.id)}
                                             className={`relative flex items-center p-5 rounded-2xl border-2 border-dashed transition-all text-left
-                                                ${showOtherInput[step.id] ? 'border-indigo-400 bg-indigo-50 shadow-sm' : 'border-slate-300 bg-white hover:border-indigo-300 hover:bg-slate-50'}`}
+                                                ${showOtherInput[step.id] ? 'border-indigo-400 dark:border-indigo-500/40 bg-indigo-50 dark:bg-indigo-600/10 shadow-sm' : 'border-slate-300 dark:border-white/10 bg-white dark:bg-white/5 hover:border-indigo-300 dark:hover:border-indigo-500/30 hover:bg-slate-50 dark:hover:bg-white/10'}`}
                                         >
-                                            <div className="w-6 h-6 rounded-md mr-4 shrink-0 flex items-center justify-center bg-slate-100 text-slate-500">
+                                            <div className="w-6 h-6 rounded-md mr-4 shrink-0 flex items-center justify-center bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-zinc-400">
                                                 <MessageSquare className="w-4 h-4" />
                                             </div>
-                                            <span className="font-semibold text-slate-700">Other / Custom</span>
+                                            <span className="font-semibold text-slate-700 dark:text-zinc-300">Other / Custom</span>
                                         </button>
                                     )}
                                 </div>
@@ -322,8 +334,8 @@ export default function QuestionnairePage({ searchParams }: { searchParams: Prom
                                             onClick={() => handleSliderAnswer(step.id, num)}
                                             className={`w-16 h-16 flex items-center justify-center rounded-2xl border-2 font-bold text-xl transition-all
                                                 ${answers[step.id] === num 
-                                                    ? 'border-indigo-600 bg-indigo-600 text-white hover:scale-105 shadow-md shadow-indigo-200' 
-                                                    : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:scale-105'}`}
+                                                    ? 'border-indigo-600 bg-indigo-600 text-white hover:scale-105 shadow-md dark:shadow-none' 
+                                                    : 'border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 text-slate-600 dark:text-zinc-300 hover:border-slate-300 dark:hover:border-white/20 hover:bg-slate-50 dark:hover:bg-white/10 hover:scale-105'}`}
                                         >
                                             {num}
                                         </button>
@@ -333,12 +345,12 @@ export default function QuestionnairePage({ searchParams }: { searchParams: Prom
 
                             {/* SLIDER */}
                             {step.type === 'slider' && (
-                                <div className="bg-white border-2 border-slate-200 rounded-2xl p-8 py-10 shadow-sm relative overflow-hidden">
+                                <div className="bg-white dark:bg-white/5 border-2 border-slate-200 dark:border-white/10 rounded-2xl p-8 py-10 shadow-sm relative overflow-hidden">
                                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-200 via-indigo-400 to-indigo-600 opacity-20" />
                                     
-                                    <div className="flex items-center justify-between font-bold text-slate-500 text-sm mb-6">
+                                    <div className="flex items-center justify-between font-bold text-slate-500 dark:text-zinc-400 text-sm mb-6">
                                         <span>{step.min ?? 0}</span>
-                                        <span className="text-indigo-600 text-3xl">{answers[step.id] ?? (step.min ?? 0)}</span>
+                                        <span className="text-indigo-600 dark:text-indigo-400 text-3xl">{answers[step.id] ?? (step.min ?? 0)}</span>
                                         <span>{step.max ?? 100}</span>
                                     </div>
                                     
@@ -348,7 +360,7 @@ export default function QuestionnairePage({ searchParams }: { searchParams: Prom
                                         max={step.max ?? 100} 
                                         value={answers[step.id] ?? (step.min ?? 0)} 
                                         onChange={(e) => handleSliderAnswer(step.id, Number(e.target.value))}
-                                        className="w-full appearance-none h-3 bg-slate-100 rounded-full outline-none accent-indigo-600 slider-thumb-premium" 
+                                        className="w-full appearance-none h-3 bg-slate-100 dark:bg-white/10 rounded-full outline-none accent-indigo-600 slider-thumb-premium" 
                                     />
                                     
                                     {/* Inline CSS just for this unique slider thumb to look premium */}
@@ -387,7 +399,7 @@ export default function QuestionnairePage({ searchParams }: { searchParams: Prom
                                         }}
                                         placeholder="Type your answer here in your own words..."
                                         rows={4}
-                                        className="w-full text-lg font-medium text-slate-900 placeholder:text-slate-400 bg-white border-2 border-slate-200 focus:border-indigo-600 focus:ring-4 focus:ring-indigo-50 rounded-2xl p-5 transition-all outline-none resize-none"
+                                        className="w-full text-lg font-medium text-slate-900 dark:text-zinc-50 placeholder:text-slate-300 dark:placeholder:text-zinc-600 bg-white dark:bg-white/5 border-2 border-slate-200 dark:border-white/10 focus:border-indigo-600 dark:focus:border-indigo-500 focus:ring-4 focus:ring-indigo-50 dark:focus:ring-indigo-500/10 rounded-2xl p-5 transition-all outline-none resize-none"
                                     />
                                 </motion.div>
                             )}
@@ -398,20 +410,20 @@ export default function QuestionnairePage({ searchParams }: { searchParams: Prom
             </main>
 
             {/* Bottom Nav Footer */}
-            <div className="fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-md border-t border-slate-200 px-6 py-4 z-50">
+            <div className="fixed bottom-0 left-0 w-full bg-white/90 dark:bg-black/60 backdrop-blur-md border-t border-slate-200 dark:border-white/5 px-6 py-4 z-50">
                 <div className="max-w-4xl mx-auto flex items-center justify-between">
-                    <button onClick={handleBack} className="flex items-center gap-2 px-5 py-3 rounded-xl text-slate-600 font-semibold hover:bg-slate-100 transition-colors">
+                    <button onClick={handleBack} className="flex items-center gap-2 px-5 py-3 rounded-xl text-slate-600 dark:text-zinc-400 font-semibold hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
                         <ArrowLeft className="w-4 h-4" /> Back
                     </button>
                     
                     <div className="flex gap-2 isolate hidden sm:flex">
                         {questions.map((_, i) => (
-                            <div key={i} className={`h-2 rounded-full transition-all duration-300 ${i === currentStep ? 'w-8 bg-indigo-600' : i < currentStep ? 'w-3 bg-indigo-300' : 'w-3 bg-slate-200'}`} />
+                            <div key={i} className={`h-2 rounded-full transition-all duration-300 ${i === currentStep ? 'w-8 bg-indigo-600 dark:bg-indigo-500' : i < currentStep ? 'w-3 bg-indigo-300 dark:bg-indigo-500/40' : 'w-3 bg-slate-200 dark:bg-zinc-800'}`} />
                         ))}
                     </div>
 
                     <button onClick={handleNext} disabled={!isValid()}
-                        className="flex items-center gap-2 px-7 py-3 rounded-xl bg-slate-900 text-white font-semibold hover:bg-slate-800 focus:ring-4 focus:ring-slate-200 disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-xl hover:shadow-2xl hover:-translate-y-0.5 disabled:translate-y-0">
+                        className="flex items-center gap-2 px-7 py-3 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold hover:bg-slate-800 dark:hover:bg-zinc-100 focus:ring-4 focus:ring-slate-200 dark:focus:ring-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-xl hover:shadow-2xl hover:-translate-y-0.5 disabled:translate-y-0">
                         {currentStep === questions.length - 1 ? 'Analyze Trajectory' : 'Continue'}
                         <ArrowRight className="w-4 h-4" />
                     </button>

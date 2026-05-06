@@ -23,7 +23,7 @@ RULES:
 6. Use markdown formatting for lists when helpful.`;
 
     const result = streamText({
-        model: google('gemini-3-flash-preview'),
+        model: google('gemini-2.5-flash'),
         system: systemPrompt,
         messages,
     });

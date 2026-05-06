@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
+
 import { google } from '@ai-sdk/google';
 import { generateText } from 'ai';
 import * as dotenv from 'dotenv';
@@ -5,7 +8,13 @@ dotenv.config({ path: '.env.local' });
 
 async function test() {
     console.log('Testing models...');
-    const models = ['gemini-1.5-flash', 'gemini-1.5-flash-latest', 'gemini-pro', 'models/gemini-1.5-flash'];
+    const models = [
+        'gemini-1.5-flash',
+        'gemini-2.0-flash',
+        'gemini-2.5-flash',
+        'gemini-1.5-pro',
+        'gemini-2.0-flash-exp'
+    ];
     
     for (const m of models) {
         try {

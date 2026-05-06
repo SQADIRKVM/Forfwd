@@ -1,3 +1,5 @@
+import * as cheerio from 'cheerio';
+
 export interface SearchResult {
     title: string;
     url: string;
@@ -47,7 +49,6 @@ async function fetchPage(query: string, page: number, timeoutMs = 12000): Promis
         }
 
         const html = await res.text();
-        const cheerio = require('cheerio');
         const $ = cheerio.load(html);
         const results: SearchResult[] = [];
 

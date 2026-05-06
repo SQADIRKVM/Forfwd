@@ -1,51 +1,77 @@
 "use server";
 
-import { neon } from "@neondatabase/serverless";
-import { auth } from "@clerk/nextjs/server";
+import { auth } from '@/lib/auth/server';
+import { prisma } from "@/lib/prisma";
 
-function getSql() {
-    if (!process.env.DATABASE_URL) {
-        throw new Error("DATABASE_URL is not defined");
-    }
-    return neon(process.env.DATABASE_URL);
-}
+import type { DashboardData } from '@/lib/schemas';
 
-export async function saveReportAction(dashboardData: any) {
-    const { userId } = await auth();
-    if (!userId) throw new Error("Unauthorized");
+export async function saveReportAction(dashboardData: DashboardData) {
+    const { data: session } = await auth.getSession();
+    if (!session?.user?.id) throw new Error("Unauthorized");
 
-    const sql = getSql();
     try {
-        // Save the report to Neon
-        // We use JSON.stringify for safety, Neon driver handles JSONB well
-        await sql`
-            INSERT INTO reports (user_id, data)
-            VALUES (${userId}, ${JSON.stringify(dashboardData)})
-        `;
+        await prisma.report.create({
+            data: {
+                userId: session.user.id,
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                data: dashboardData as any,
+            },
+        });
         return { success: true };
     } catch (error) {
-        console.error("Neon Save Error:", error);
+        console.error("Prisma Save Error:", error);
         return { success: false, error: "Failed to save to database" };
     }
 }
 
 export async function getLatestReportAction() {
-    const { userId } = await auth();
-    if (!userId) return null;
+    const { data: session } = await auth.getSession();
+    if (!session?.user?.id) return null;
 
-    const sql = getSql();
     try {
-        const result = await sql`
-            SELECT data FROM reports 
-            WHERE user_id = ${userId} 
-            ORDER BY created_at DESC 
-            LIMIT 1
-        `;
-        
-        if (result.length === 0) return null;
-        return result[0].data;
+        const report = await prisma.report.findFirst({
+            where: { userId: session.user.id },
+            orderBy: { createdAt: 'desc' },
+        });
+        return report?.data || null;
     } catch (error) {
-        console.error("Neon Fetch Error:", error);
+        console.error("Prisma Fetch Error:", error);
         return null;
+    }
+}
+
+export async function getAllReportsAction() {
+    const { data: session } = await auth.getSession();
+    if (!session?.user?.id) return [];
+
+    try {
+        const reports = await prisma.report.findMany({
+            where: { userId: session.user.id },
+            orderBy: { createdAt: 'desc' },
+            select: {
+                id: true,
+                createdAt: true,
+                data: true,
+            },
+        });
+        return reports;
+    } catch (error) {
+        console.error("Prisma Fetch All Error:", error);
+        return [];
+    }
+}
+
+export async function deleteReportAction(reportId: string) {
+    const { data: session } = await auth.getSession();
+    if (!session?.user?.id) throw new Error("Unauthorized");
+
+    try {
+        await prisma.report.delete({
+            where: { id: reportId, userId: session.user.id },
+        });
+        return { success: true };
+    } catch (error) {
+        console.error("Prisma Delete Error:", error);
+        return { success: false };
     }
 }

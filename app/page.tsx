@@ -2,13 +2,15 @@
 
 import { Button } from '@/components/ui/button';
 import { 
-  ArrowRight, Compass, Database, Zap, ShieldCheck, Cpu, 
-  Search, Globe, Network, Github, Twitter, Linkedin, Mail, PlayCircle, ExternalLink, Lock, CheckCircle2, TrendingUp, BookOpen, GraduationCap, Briefcase, RefreshCw, ChevronDown
+  ArrowRight, Compass,
+  Search, Globe, PlayCircle, ExternalLink, Lock, CheckCircle2, TrendingUp, GraduationCap, Briefcase, RefreshCw, ChevronDown
 } from 'lucide-react';
 import Link from 'next/link';
-import { Show, UserButton, SignInButton } from "@clerk/nextjs";
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { useRef, useState } from 'react';
+import { authClient } from "@/lib/auth/client";
+import { UserAccountNav } from '@/components/shared/UserAccountNav';
+import { AuthModal } from '@/components/shared/AuthModal';
 
 // Mouse tracking glow card
 function GlowCard({ children, className = "" }: { children: React.ReactNode, className?: string }) {
@@ -71,6 +73,8 @@ function FAQItem({ question, answer }: { question: string, answer: string }) {
 }
 
 export default function LandingPage() {
+  const { data: session } = authClient.useSession();
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
   
@@ -117,22 +121,24 @@ export default function LandingPage() {
               ))}
             </div>
 
-            <div className="flex items-center gap-4">
-              <Show when="signed-out">
-                <SignInButton mode="modal">
-                  <Button className="bg-white hover:bg-zinc-200 text-black rounded-full px-6 h-10 transition-all font-medium text-sm">
+            <div className="flex items-center gap-3">
+              {!session ? (
+                <div className="flex items-center gap-3">
+                  <UserAccountNav variant="dark" />
+                  <Button onClick={() => setIsAuthModalOpen(true)} className="bg-white hover:bg-zinc-200 text-black rounded-full px-6 h-10 transition-all font-medium text-sm">
                     Sign In
                   </Button>
-                </SignInButton>
-              </Show>
-              <Show when="signed-in">
-                <Link href="/onboarding">
-                  <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-full px-6 h-10 transition-all font-medium text-sm mr-2">
-                    Dashboard
-                  </Button>
-                </Link>
-                <UserButton />
-              </Show>
+                </div>
+              ) : (
+                <div className="flex items-center gap-3">
+                  <Link href="/dashboard">
+                    <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-full px-6 h-10 transition-all font-medium text-sm">
+                      Dashboard
+                    </Button>
+                  </Link>
+                  <UserAccountNav variant="dark" />
+                </div>
+              )}
             </div>
           </nav>
         </header>
@@ -179,22 +185,19 @@ export default function LandingPage() {
               transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
               className="flex justify-center items-center flex-col sm:flex-row gap-4"
             >
-              <Show when="signed-out">
-                <SignInButton mode="modal">
+              {!session ? (
+                <Button onClick={() => setIsAuthModalOpen(true)} className="h-14 px-10 rounded-full font-medium text-base bg-white text-black hover:bg-zinc-200 transition-all flex items-center justify-center gap-2 group shadow-[0_0_40px_rgba(255,255,255,0.1)] hover:shadow-[0_0_60px_rgba(255,255,255,0.2)]">
+                  Sign In to Start
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              ) : (
+                <Link href="/dashboard">
                   <Button className="h-14 px-10 rounded-full font-medium text-base bg-white text-black hover:bg-zinc-200 transition-all flex items-center justify-center gap-2 group shadow-[0_0_40px_rgba(255,255,255,0.1)] hover:shadow-[0_0_60px_rgba(255,255,255,0.2)]">
-                    Sign In to Start
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </SignInButton>
-              </Show>
-              <Show when="signed-in">
-                <Link href="/onboarding">
-                  <Button className="h-14 px-10 rounded-full font-medium text-base bg-white text-black hover:bg-zinc-200 transition-all flex items-center justify-center gap-2 group shadow-[0_0_40px_rgba(255,255,255,0.1)] hover:shadow-[0_0_60px_rgba(255,255,255,0.2)]">
-                    Start Your Assessment
+                    Go to Dashboard
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
-              </Show>
+              )}
               <Link href="/dashboard">
                 <Button variant="outline" className="h-14 px-10 rounded-full font-medium text-base border-white/10 text-white bg-white/5 hover:bg-white/10 backdrop-blur-md transition-all flex items-center justify-center gap-2">
                   <PlayCircle className="w-5 h-5 text-zinc-400" />
@@ -220,7 +223,7 @@ export default function LandingPage() {
                             <GraduationCap className="w-6 h-6 text-indigo-400" />
                         </div>
                         <h3 className="text-2xl font-medium text-white mb-3 tracking-tight">High School Students</h3>
-                        <p className="text-zinc-400 leading-relaxed text-lg">Don't pick a major blindly. See exactly what degrees lead to high-paying jobs before you spend thousands on tuition.</p>
+                        <p className="text-zinc-400 leading-relaxed text-lg">Don&apos;t pick a major blindly. See exactly what degrees lead to high-paying jobs before you spend thousands on tuition.</p>
                     </div>
                     <div className="p-8 rounded-[2rem] bg-zinc-900/20 border border-white/5">
                         <div className="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-6">
@@ -273,7 +276,7 @@ export default function LandingPage() {
                 <div className="mt-12">
                   <h3 className="text-2xl font-medium mb-3 tracking-tight text-white">Actionable Next Steps</h3>
                   <p className="text-zinc-400 leading-relaxed">
-                    We don't just tell you what career fits. We tell you the exact skills to learn, tools to master, and certifications to get.
+                    We don&apos;t just tell you what career fits. We tell you the exact skills to learn, tools to master, and certifications to get.
                   </p>
                 </div>
               </GlowCard>
@@ -299,7 +302,7 @@ export default function LandingPage() {
                   </div>
                   <h3 className="text-2xl font-medium mb-4 tracking-tight text-white">100% Private & Secure</h3>
                   <p className="text-zinc-400 leading-relaxed text-lg">
-                    We don't have a database. We don't save your answers. Everything runs locally in your browser session. When you close the tab, your data is gone forever.
+                    We don&apos;t have a database. We don&apos;t save your answers. Everything runs locally in your browser session. When you close the tab, your data is gone forever.
                   </p>
                 </div>
                 <div className="w-full md:w-2/5 aspect-video bg-black/50 rounded-2xl border border-white/5 flex items-center justify-center shadow-inner relative overflow-hidden group">
@@ -376,7 +379,7 @@ export default function LandingPage() {
                         </h3>
                         <ul className="space-y-6 text-zinc-400 text-lg">
                             <li>Relying on years-old salary surveys and generalized government data.</li>
-                            <li>Telling you to "follow your passion" without a realistic financial plan.</li>
+                            <li>Telling you to &quot;follow your passion&quot; without a realistic financial plan.</li>
                             <li>Broad college major recommendations without specific skill requirements.</li>
                             <li>No way to know if a job will exist in 5 years.</li>
                         </ul>
@@ -455,6 +458,11 @@ export default function LandingPage() {
         </footer>
 
       </div>
+      {/* Auth Modal */}
+      <AuthModal 
+        isOpen={isAuthModalOpen} 
+        onClose={() => setIsAuthModalOpen(false)} 
+      />
     </div>
   );
 }

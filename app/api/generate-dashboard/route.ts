@@ -5,13 +5,14 @@ import { searchSearxNG } from '@/lib/searxng';
 import { fetchPageContent } from '@/lib/scraper';
 import { DashboardDataSchema } from '@/lib/schemas';
 import { saveReportAction } from '@/app/actions/report';
-import { auth } from '@clerk/nextjs/server';
+import { auth } from '@/lib/auth/server';
 
 export const maxDuration = 120; // Allow 120s for deep multi-page research
 
 export async function POST(req: Request) {
     try {
-        const { userId } = await auth();
+        const { data: session } = await auth.getSession();
+        const userId = session?.user?.id;
         const { answers, studentType, userName, location, currency } = await req.json();
 
         // Always compute the current year server-side — never let the AI guess
@@ -20,7 +21,7 @@ export async function POST(req: Request) {
 
         // ── 1. Plan: generate 6 targeted search queries ──────────────────────────
         const searchPlan = await generateObject({
-            model: google('gemini-3-flash-preview'),
+            model: google('gemini-2.5-flash'),
             schema: DashboardDataSchema.pick({ profileSummary: true }).extend({
                 searchQueries: z.array(z.string()).min(4).max(8)
             }),
@@ -119,7 +120,7 @@ RULES:
 
         // ── 3. Synthesize personalized dashboard ────────────────────────────────
         const dashboard = await generateObject({
-            model: google('gemini-3-flash-preview'),
+            model: google('gemini-2.5-flash'),
             schema: DashboardDataSchema,
             system: `You are a world-class Career Counselor & Educational Consultant. Today is ${CURRENT_YEAR}.
 Generate a detailed, hyper-personalized career dashboard based on the user's profile and the research data below.
@@ -188,7 +189,7 @@ COURSE LINKS: For certifications, use real URLs:
 SOURCE CITATIONS: Populate sources[] with real URLs from the research data below. Reference their ids in careerPathways[].sourceIds.
 
 LIVE RESEARCH DATA (${flatResults.length} sources, ${CURRENT_YEAR}):
-${topSources.map((r, i) => `[${i + 1}] ${r.title}\n   URL: ${r.url}\n   ${(r as any).fullContent ? `FULL CONTENT (SCALED): ${(r as any).fullContent.slice(0, 8000)}` : `SNIPPET: ${r.content?.slice(0, 500)}`}`).join('\n\n')}
+${topSources.map((r, i) => `[${i + 1}] ${r.title}\n   URL: ${r.url}\n   ${(r as unknown as Record<string, unknown>).fullContent ? `FULL CONTENT (SCALED): ${String((r as unknown as Record<string, unknown>).fullContent).slice(0, 8000)}` : `SNIPPET: ${r.content?.slice(0, 500)}`}`).join('\n\n')}
 `,
             messages: [
                 {

@@ -1,7 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-/* No custom dark variants needed for generic light academic theme */
+/* ─── Tailwind v4: class-based dark mode (controlled by next-themes) ─── */
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
   --color-background: var(--background);
@@ -10,7 +11,6 @@
   --color-ring: var(--ring);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  /* standard shadcn vars */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -18,38 +18,51 @@
   --radius-2xl: calc(var(--radius) + 8px);
 }
 
+/* ─── Light theme tokens ────────────────────────────────────────────── */
 :root {
   --radius: 0.5rem;
-  
-  /* Academic Light Theme: Crisp white, soft slate, deep indigo/blue primary */
-  --background: oklch(0.985 0 0); /* very soft off-white `slate-50` */
-  --foreground: oklch(0.145 0 0); /* `slate-950` */
-  
-  --card: oklch(1 0 0); /* pure white */
+  --background: oklch(0.985 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
-  
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  
-  /* Academic Trust Blue (e.g. indigo-600) */
-  --primary: oklch(0.446 0.177 257.653); 
+  --primary: oklch(0.446 0.177 257.653);
   --primary-foreground: oklch(0.985 0 0);
-  
-  --secondary: oklch(0.922 0 0); /* `slate-200` */
+  --secondary: oklch(0.922 0 0);
   --secondary-foreground: oklch(0.145 0 0);
-  
   --muted: oklch(0.922 0 0);
-  --muted-foreground: oklch(0.4 0 0); /* `slate-600` */
-  
+  --muted-foreground: oklch(0.4 0 0);
   --accent: oklch(0.922 0 0);
   --accent-foreground: oklch(0.145 0 0);
-  
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
-  
-  --border: oklch(0.869 0 0); /* `slate-300` */
+  --border: oklch(0.869 0 0);
   --input: oklch(0.869 0 0);
-  --ring: oklch(0.446 0.177 257.653); /* matching primary indigo */
+  --ring: oklch(0.446 0.177 257.653);
+}
+
+/* ─── Dark theme tokens (matches landing page aesthetic) ────────────── */
+.dark {
+  --background: oklch(0.06 0 0);       /* #050505 — same as landing */
+  --foreground: oklch(0.96 0 0);       /* zinc-50 */
+  --card: oklch(0.10 0 0);             /* zinc-900 */
+  --card-foreground: oklch(0.96 0 0);
+  --popover: oklch(0.10 0 0);
+  --popover-foreground: oklch(0.96 0 0);
+  --primary: oklch(0.60 0.20 257);     /* indigo-400 for better contrast */
+  --primary-foreground: oklch(0.06 0 0);
+  --secondary: oklch(0.14 0 0);        /* zinc-800 */
+  --secondary-foreground: oklch(0.96 0 0);
+  --muted: oklch(0.14 0 0);
+  --muted-foreground: oklch(0.65 0 0); /* zinc-400 */
+  --accent: oklch(0.14 0 0);
+  --accent-foreground: oklch(0.96 0 0);
+  --destructive: oklch(0.60 0.24 27);
+  --destructive-foreground: oklch(0.96 0 0);
+  --border: oklch(0.18 0 0);           /* white/10 equivalent */
+  --input: oklch(0.18 0 0);
+  --ring: oklch(0.60 0.20 257);
 }
 
 @layer base {
@@ -58,17 +71,21 @@
   }
   body {
     @apply bg-slate-50 text-slate-900 selection:bg-indigo-100;
+    transition: background-color 0.3s ease, color 0.2s ease;
   }
+}
+
+/* Dark body background — applied via html.dark class from next-themes */
+html.dark body {
+  background-color: #050505;
+  color: oklch(0.96 0 0);
 }
 
 @media print {
   body { background: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .no-print { display: none !important; }
   .print-break-inside-avoid { page-break-inside: avoid; break-inside: avoid; }
-  /* Ensure scrolling containers expand to full height for printing */
   .overflow-y-auto, .overflow-hidden { overflow: visible !important; height: auto !important; max-height: none !important; }
-  /* Make canvas static */
   .absolute { position: static !important; }
-  /* Hide the graph canvas entirely on print to save ink */
   .print-hide-graph { display: none !important; }
 }

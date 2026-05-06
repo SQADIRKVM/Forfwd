@@ -21,11 +21,11 @@ const QuestionSetSchema = z.object({
 
 export async function POST(req: Request) {
     try {
-        const { studentType, previousAnswers, userName } = await req.json();
+        const { studentType, userName } = await req.json();
 
         const result = await generateObject({
-            model: google('gemini-3-flash-preview'), // Fast model for interactivity
-            schema: QuestionSetSchema,
+            model: google('gemini-3.1-flash-lite-preview'), // Fast model for interactivity
+                schema: QuestionSetSchema,
             system: `You are an expert Career Counselor AI. 
       Generate 5-7 highly relevant, probing questions to analyze a student's career potential.
       
@@ -45,8 +45,8 @@ export async function POST(req: Request) {
 
         return Response.json({ success: true, data: result.object.questions });
 
-    } catch (error: any) {
+    } catch (error) {
         console.error("Question Generation Error:", error);
-        return Response.json({ success: false, error: error?.message || 'Failed to generate questions' }, { status: 500 });
+        return Response.json({ success: false, error: error instanceof Error ? error.message : 'Failed to generate questions' }, { status: 500 });
     }
 }

@@ -52,7 +52,7 @@ export async function POST(req: Request) {
         const CURRENT_YEAR = new Date().getFullYear();
 
         const result = await generateObject({
-            model: google('gemini-3-flash-preview'),
+            model: google('gemini-2.5-flash'),
             schema: AblationSchema,
             system: `You are a career counselor. Generate career recommendations based ONLY on your training knowledge. Do NOT make up URLs or sources. Today is ${CURRENT_YEAR}. Location: ${location}. Currency: ${currency}.`,
             messages: [{

@@ -20,7 +20,7 @@ export async function POST(req: Request) {
         }
 
         const result = await generateObject({
-            model: google('gemini-3-flash-preview'),
+            model: google('gemini-2.5-flash'),
             schema: AtsResultSchema,
             system: `You are an expert ATS (Applicant Tracking System) algorithm used by top tech companies and recruiters.
 Your job is to strictly evaluate a candidate's given resume text against the target job role they selected.
