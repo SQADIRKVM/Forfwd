@@ -44,7 +44,8 @@ RULES:
 6. If their goal involves starting a business: include incubator/accelerator/funding queries.
 7. If they're a professional: include upskilling, career progression, industry trends.
 8. **Diversity Rule**: Cover HR, Management, Public Admin, Creative, and Tech if the user's profile suggests any interest in these areas.
-9. **NO DICTIONARIES**: Avoid queries that yield general word definitions (e.g. search for salary trends, not word meanings). Append "-dictionary -thesaurus" if needed.
+9. **NO DICTIONARIES OR GRAMMAR**: Avoid queries that yield general word definitions or English grammar discussions (e.g., "it is best" vs "it is the best", StackExchange grammar threads). Append "-dictionary -thesaurus" if needed.
+10. **NO API REFERENCE MANUALS**: Avoid literal search queries for language syntax or programming API classes (e.g., "std::future", "std::async", "C++ promise") unless the user explicitly requested code snippets. Focus entirely on careers, real-world industry trends, job salaries, university programs, and professional skills (e.g., "M.Tech Software Engineering Cochin University", "Senior Software Developer salary Kochi").
 `,
             messages: [
                 {
