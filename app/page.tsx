@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { 
   ArrowRight, Compass,
-  Search, Globe, PlayCircle, ExternalLink, Lock, CheckCircle2, TrendingUp, GraduationCap, Briefcase, RefreshCw, ChevronDown
+  Search, Globe, PlayCircle, ExternalLink, Lock, CheckCircle2, TrendingUp, GraduationCap, Briefcase, RefreshCw, ChevronDown, Check, X, Activity
 } from 'lucide-react';
 import Link from 'next/link';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
@@ -211,103 +211,173 @@ export default function LandingPage() {
         </motion.section>
 
         {/* Who is this for? */}
-        <section className="py-24 px-6 md:px-12 bg-[#050505] relative z-20 border-t border-white/5">
+        <section className="py-32 px-6 md:px-12 bg-[#050505] relative z-20 border-t border-white/5">
             <div className="max-w-7xl mx-auto">
-                <div className="text-center mb-16">
-                    <h2 className="text-4xl font-semibold tracking-tight text-white mb-4">Who is CareerX built for?</h2>
-                    <p className="text-zinc-400 text-xl max-w-2xl mx-auto">Whether you are just starting out or making a major pivot, we find the data that matters to you.</p>
+                <div className="text-center mb-24">
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 mb-5 text-xs font-semibold tracking-wider uppercase text-indigo-400"
+                    >
+                        Audience Profiles
+                    </motion.div>
+                    <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-5">Who is CareerX built for?</h2>
+                    <p className="text-zinc-400 text-lg md:text-xl max-w-2xl mx-auto font-normal leading-relaxed">
+                        Whether you are navigating high school, orchestrating a mid-career pivot, or optimizing a resume, we find the real-time data that matters to you.
+                    </p>
                 </div>
+                
                 <div className="grid md:grid-cols-3 gap-8">
-                    <div className="p-8 rounded-[2rem] bg-zinc-900/20 border border-white/5">
-                        <div className="w-12 h-12 bg-indigo-500/10 rounded-2xl flex items-center justify-center mb-6">
-                            <GraduationCap className="w-6 h-6 text-indigo-400" />
-                        </div>
-                        <h3 className="text-2xl font-medium text-white mb-3 tracking-tight">High School Students</h3>
-                        <p className="text-zinc-400 leading-relaxed text-lg">Don&apos;t pick a major blindly. See exactly what degrees lead to high-paying jobs before you spend thousands on tuition.</p>
-                    </div>
-                    <div className="p-8 rounded-[2rem] bg-zinc-900/20 border border-white/5">
-                        <div className="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-6">
-                            <RefreshCw className="w-6 h-6 text-emerald-400" />
-                        </div>
-                        <h3 className="text-2xl font-medium text-white mb-3 tracking-tight">Career Switchers</h3>
-                        <p className="text-zinc-400 leading-relaxed text-lg">Find the shortest path from your current role to your dream job. We identify the exact skill gaps you need to bridge.</p>
-                    </div>
-                    <div className="p-8 rounded-[2rem] bg-zinc-900/20 border border-white/5">
-                        <div className="w-12 h-12 bg-amber-500/10 rounded-2xl flex items-center justify-center mb-6">
-                            <Briefcase className="w-6 h-6 text-amber-400" />
-                        </div>
-                        <h3 className="text-2xl font-medium text-white mb-3 tracking-tight">Job Seekers</h3>
-                        <p className="text-zinc-400 leading-relaxed text-lg">Use our built-in ATS scanner to see what keywords you are missing for the roles you actually want.</p>
-                    </div>
+                    {[
+                        {
+                            icon: GraduationCap,
+                            colorClass: "text-indigo-400",
+                            bgGradient: "from-indigo-500/20 to-indigo-500/5",
+                            borderHover: "hover:border-indigo-500/30 hover:shadow-[0_0_50px_rgba(99,102,241,0.15)]",
+                            title: "High School Students",
+                            desc: "Don't select a university major blindly. Map out exact degrees and certifications that convert directly into high-paying, future-proof roles before investing in tuition."
+                        },
+                        {
+                            icon: RefreshCw,
+                            colorClass: "text-emerald-400",
+                            bgGradient: "from-emerald-500/20 to-emerald-500/5",
+                            borderHover: "hover:border-emerald-500/30 hover:shadow-[0_0_50px_rgba(16,185,129,0.15)]",
+                            title: "Career Switchers",
+                            desc: "Calculate your exact transferability score. Map out the absolute shortest bridge pathway from your current role to your target career with structured, focused milestones."
+                        },
+                        {
+                            icon: Briefcase,
+                            colorClass: "text-amber-400",
+                            bgGradient: "from-amber-500/20 to-amber-500/5",
+                            borderHover: "hover:border-amber-500/30 hover:shadow-[0_0_50px_rgba(245,158,11,0.15)]",
+                            title: "Job Seekers",
+                            desc: "Run our high-end ATS compatibility scanner to uncover missing keywords, optimize your profile, and realign your portfolio with what companies are hiring for today."
+                        }
+                    ].map((card, i) => (
+                        <motion.div 
+                            key={card.title}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                            whileHover={{ y: -8, scale: 1.02 }}
+                            className={`group relative overflow-hidden rounded-[2.5rem] border border-white/5 bg-zinc-900/35 p-10 md:p-12 transition-all duration-500 ${card.borderHover}`}
+                        >
+                            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                            <div className={`w-14 h-14 bg-gradient-to-br ${card.bgGradient} rounded-2xl flex items-center justify-center mb-8 border border-white/10 shadow-lg relative z-10`}>
+                                <card.icon className={`w-7 h-7 ${card.colorClass}`} />
+                            </div>
+                            <h3 className="text-2xl font-bold text-white mb-4 tracking-tight relative z-10 group-hover:text-zinc-100 transition-colors">{card.title}</h3>
+                            <p className="text-zinc-400 leading-relaxed text-base md:text-lg relative z-10 group-hover:text-zinc-300 transition-colors">{card.desc}</p>
+                        </motion.div>
+                    ))}
                 </div>
             </div>
         </section>
 
         {/* Bento Grid Features */}
-        <section id="features" className="py-32 px-6 md:px-12 relative z-20 bg-[#0A0A0A] border-t border-white/5">
+        <section id="features" className="py-32 px-6 md:px-12 relative z-20 bg-[#080808] border-t border-white/5">
           <div className="max-w-7xl mx-auto">
-            <div className="mb-20 md:w-2/3">
-              <h2 className="text-4xl md:text-5xl font-semibold tracking-tight mb-6 text-white">Built on real data, not assumptions.</h2>
-              <p className="text-zinc-400 text-xl leading-relaxed tracking-tight">Most career advice is outdated. We use live web searches to find out exactly what employers are asking for today.</p>
+            <div className="mb-24 md:w-2/3">
+                <motion.div 
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-violet-500/30 bg-violet-500/10 mb-5 text-xs font-semibold tracking-wider uppercase text-violet-400"
+                >
+                    Core Features
+                </motion.div>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-white leading-tight">Built on real-time data,<br />not generic assumptions.</h2>
+                <p className="text-zinc-400 text-lg md:text-xl leading-relaxed max-w-2xl font-normal">
+                    Traditional career guidance relies on stale datasets. CareerX conducts targeted live-web research to pull precise hiring trends, salaries, and real opinions right now.
+                </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Large Card */}
-              <GlowCard className="col-span-1 md:col-span-2 flex flex-col justify-between group min-h-[400px]">
-                <div className="absolute top-0 right-0 p-12 opacity-10 group-hover:opacity-30 group-hover:scale-110 transition-all duration-700 ease-out pointer-events-none">
-                  <Globe className="w-64 h-64 text-indigo-500" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Large Card: Live Market Research */}
+              <GlowCard className="col-span-1 md:col-span-2 flex flex-col justify-between group min-h-[480px] hover:border-indigo-500/20 hover:shadow-[0_0_80px_rgba(99,102,241,0.08)] transition-all duration-500">
+                <div className="absolute -top-10 -right-10 p-12 opacity-[0.03] group-hover:opacity-[0.08] group-hover:scale-105 transition-all duration-700 ease-out pointer-events-none">
+                  <Globe className="w-96 h-96 text-indigo-500" />
                 </div>
-                <div className="relative z-10 max-w-lg mt-auto">
-                  <div className="w-14 h-14 bg-zinc-800 rounded-2xl flex items-center justify-center mb-8 border border-white/10 shadow-lg">
-                    <Search className="w-6 h-6 text-indigo-400" />
+                <div className="relative z-10 max-w-xl mt-auto p-2">
+                  <div className="w-16 h-16 bg-zinc-800/80 rounded-2xl flex items-center justify-center mb-10 border border-white/10 shadow-xl group-hover:border-indigo-500/30 group-hover:shadow-[0_0_30px_rgba(99,102,241,0.2)] transition-all duration-500">
+                    <Search className="w-8 h-8 text-indigo-400" />
                   </div>
-                  <h3 className="text-3xl font-medium mb-4 tracking-tight text-white">Live Market Research</h3>
-                  <p className="text-zinc-400 leading-relaxed text-lg">
-                    When you finish the questionnaire, our system instantly searches the web for current job listings, university curriculums, and salary data to build your report.
+                  <h3 className="text-3xl md:text-4xl font-bold mb-5 tracking-tight text-white">Live Market RAG Research</h3>
+                  <p className="text-zinc-400 leading-relaxed text-base md:text-lg font-normal group-hover:text-zinc-300 transition-colors">
+                    When you complete our adaptive questionnaire, our platform instantly launches parallel web queries via SearXNG to scrape actual job boards, corporate listings, and academic databases, synthesizing a highly custom study dashboard.
                   </p>
                 </div>
               </GlowCard>
 
-              {/* Standard Card 1 */}
-              <GlowCard className="col-span-1 flex flex-col">
-                <div className="w-12 h-12 bg-zinc-800 rounded-2xl flex items-center justify-center mb-auto border border-white/10 shadow-lg">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+              {/* Actionable Next Steps */}
+              <GlowCard className="col-span-1 flex flex-col justify-between group p-10 hover:border-emerald-500/20 hover:shadow-[0_0_80px_rgba(16,185,129,0.08)] transition-all duration-500">
+                <div className="w-14 h-14 bg-zinc-800/80 rounded-2xl flex items-center justify-center mb-8 border border-white/10 shadow-xl group-hover:border-emerald-500/30 group-hover:shadow-[0_0_30px_rgba(16,185,129,0.2)] transition-all duration-500">
+                  <CheckCircle2 className="w-6 h-6 text-emerald-400" />
                 </div>
-                <div className="mt-12">
-                  <h3 className="text-2xl font-medium mb-3 tracking-tight text-white">Actionable Next Steps</h3>
-                  <p className="text-zinc-400 leading-relaxed">
-                    We don&apos;t just tell you what career fits. We tell you the exact skills to learn, tools to master, and certifications to get.
+                <div>
+                  <h3 className="text-2xl font-bold mb-4 tracking-tight text-white group-hover:text-zinc-100 transition-colors">Actionable Milestones</h3>
+                  <p className="text-zinc-400 leading-relaxed text-base group-hover:text-zinc-300 transition-colors">
+                    We do not deliver static, generic descriptions. You get highly specific upskilling milestones, complete with real recommended courses, certifications, and interactive tracking progress.
                   </p>
                 </div>
               </GlowCard>
 
-              {/* Standard Card 2 */}
-              <GlowCard className="col-span-1 flex flex-col">
-                <div className="w-12 h-12 bg-zinc-800 rounded-2xl flex items-center justify-center mb-auto border border-white/10 shadow-lg">
-                  <TrendingUp className="w-5 h-5 text-amber-400" />
+              {/* Salary Transparency with Mini Graph */}
+              <GlowCard className="col-span-1 flex flex-col justify-between group p-10 hover:border-amber-500/20 hover:shadow-[0_0_80px_rgba(245,158,11,0.08)] transition-all duration-500">
+                <div className="mb-8">
+                  <div className="w-14 h-14 bg-zinc-800/80 rounded-2xl flex items-center justify-center mb-8 border border-white/10 shadow-xl group-hover:border-amber-500/30 group-hover:shadow-[0_0_30px_rgba(245,158,11,0.2)] transition-all duration-500">
+                    <TrendingUp className="w-6 h-6 text-amber-400" />
+                  </div>
+                  
+                  {/* Dynamic Custom Chart */}
+                  <div className="flex items-end gap-3 h-24 w-full px-4 mb-6 border-b border-white/5 relative">
+                    <div className="absolute left-0 right-0 top-1/2 border-t border-dashed border-white/5 pointer-events-none" />
+                    <div className="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
+                      <div className="w-full bg-zinc-800 rounded-t-md h-[30%] transition-all duration-700 group-hover:h-[40%] group-hover:bg-amber-500/20" />
+                      <span className="text-[10px] font-mono text-zinc-600">Jr</span>
+                    </div>
+                    <div className="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
+                      <div className="w-full bg-zinc-800 rounded-t-md h-[55%] transition-all duration-700 group-hover:h-[65%] group-hover:bg-amber-500/40" />
+                      <span className="text-[10px] font-mono text-zinc-600">Mid</span>
+                    </div>
+                    <div className="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
+                      <div className="w-full bg-zinc-700 rounded-t-md h-[75%] transition-all duration-700 group-hover:h-[85%] group-hover:bg-amber-500/70" />
+                      <span className="text-[10px] font-mono text-zinc-500">Sr</span>
+                    </div>
+                    <div className="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
+                      <div className="w-full bg-amber-500 rounded-t-md h-[90%] shadow-[0_0_20px_rgba(245,158,11,0.4)]" />
+                      <span className="text-[10px] font-mono text-amber-400 font-semibold">Exec</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="mt-12">
-                  <h3 className="text-2xl font-medium mb-3 tracking-tight text-white">Salary Transparency</h3>
-                  <p className="text-zinc-400 leading-relaxed">
-                    Get realistic, location-specific salary bands based on actual job postings, not five-year-old surveys.
+                <div>
+                  <h3 className="text-2xl font-bold mb-4 tracking-tight text-white">Salary Transparency</h3>
+                  <p className="text-zinc-400 leading-relaxed text-base group-hover:text-zinc-300 transition-colors">
+                    Access localized, role-specific salary curves generated in real-time based on live hiring requirements, letting you negotiate your true market worth with solid evidence.
                   </p>
                 </div>
               </GlowCard>
 
-              {/* Wide Card */}
-              <GlowCard className="col-span-1 md:col-span-2 flex flex-col md:flex-row items-center gap-10">
+              {/* Wide Card: 100% Secure & Private */}
+              <GlowCard className="col-span-1 md:col-span-2 flex flex-col md:flex-row items-center gap-12 hover:border-violet-500/20 hover:shadow-[0_0_80px_rgba(139,92,246,0.08)] transition-all duration-500">
                 <div className="flex-1">
-                  <div id="privacy" className="w-12 h-12 bg-zinc-800 rounded-2xl flex items-center justify-center mb-8 border border-white/10 shadow-lg">
-                    <Lock className="w-5 h-5 text-zinc-300" />
+                  <div id="privacy" className="w-14 h-14 bg-zinc-800/80 rounded-2xl flex items-center justify-center mb-8 border border-white/10 shadow-xl group-hover:border-violet-500/30 group-hover:shadow-[0_0_30px_rgba(139,92,246,0.2)] transition-all duration-500">
+                    <Lock className="w-6 h-6 text-violet-400" />
                   </div>
-                  <h3 className="text-2xl font-medium mb-4 tracking-tight text-white">100% Private & Secure</h3>
-                  <p className="text-zinc-400 leading-relaxed text-lg">
-                    We don&apos;t have a database. We don&apos;t save your answers. Everything runs locally in your browser session. When you close the tab, your data is gone forever.
+                  <h3 className="text-2xl md:text-3xl font-bold mb-4 tracking-tight text-white">100% Private, Safe, & Permanent</h3>
+                  <p className="text-zinc-400 leading-relaxed text-base md:text-lg font-normal group-hover:text-zinc-300 transition-colors">
+                    Your assessment, upload assets, and personal details remain completely secure. We leverage secure database storage to track and persist only your authorized learning hubs and milestone progress. You remain in complete control.
                   </p>
                 </div>
-                <div className="w-full md:w-2/5 aspect-video bg-black/50 rounded-2xl border border-white/5 flex items-center justify-center shadow-inner relative overflow-hidden group">
-                   <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                   <span className="text-sm font-mono text-zinc-500 relative z-10 group-hover:text-amber-400 transition-colors">Data deleted on exit</span>
+                <div className="w-full md:w-2/5 aspect-video bg-black/60 rounded-3xl border border-white/10 flex flex-col items-center justify-center shadow-2xl relative overflow-hidden group">
+                   <div className="absolute inset-0 bg-gradient-to-br from-violet-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                   <div className="absolute inset-x-0 h-px top-0 bg-gradient-to-r from-transparent via-violet-500/20 to-transparent" />
+                   <div className="w-12 h-12 rounded-full bg-violet-500/10 border border-violet-500/30 flex items-center justify-center mb-3 animate-pulse relative">
+                     <Lock className="w-5 h-5 text-violet-400" />
+                   </div>
+                   <span className="text-xs font-mono text-zinc-500 group-hover:text-violet-300 transition-colors tracking-wide">Secure Session Encryption</span>
                 </div>
               </GlowCard>
             </div>
@@ -319,44 +389,86 @@ export default function LandingPage() {
           <div className="max-w-7xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-20 items-center">
               <div>
-                <h2 className="text-4xl md:text-5xl font-semibold tracking-tight mb-12 text-white">How it works</h2>
-                <div className="space-y-12">
+                <motion.div 
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 mb-5 text-xs font-semibold tracking-wider uppercase text-emerald-400"
+                >
+                    Workflow
+                </motion.div>
+                <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-14 text-white leading-tight">How CareerX works</h2>
+                <div className="space-y-12 relative before:absolute before:left-5 before:top-4 before:bottom-4 before:w-[2px] before:bg-white/5">
                   {[
-                    { num: '1', title: 'Tell us about yourself', desc: 'Answer a few adaptive questions about your background, interests, and what kind of work you want to do.' },
-                    { num: '2', title: 'We scan the web', desc: 'Our platform searches for the latest industry requirements and university pathways that actually match your profile.' },
-                    { num: '3', title: 'Get your roadmap', desc: 'Receive a detailed dashboard outlining your skill gaps, potential jobs, and the exact next steps to get there.' },
-                  ].map((step) => (
-                    <div key={step.num} className="flex gap-6 group">
-                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-zinc-900 border border-white/10 flex items-center justify-center text-sm font-bold text-zinc-400 group-hover:bg-indigo-600 group-hover:text-white transition-colors">{step.num}</div>
-                      <div>
-                        <h4 className="text-xl font-medium text-white mb-2 tracking-tight">{step.title}</h4>
-                        <p className="text-zinc-400 leading-relaxed text-lg">{step.desc}</p>
+                    { num: '1', title: 'Tell us about yourself', desc: 'Complete a brief, adaptive questionnaire mapping your existing background, preferred location, target budget, and core academic interests.' },
+                    { num: '2', title: 'Live Search Aggregation', desc: 'Our platform coordinates parallel web searches, scanning current job boards and university requirements specifically matching your target criteria.' },
+                    { num: '3', title: 'Interactive Learning Hub', desc: 'Unlock an ultra-premium dashboard featuring personalized milestones, an interactive tracking schedule, and an ATS-grade resume compatibility optimizer.' },
+                  ].map((step, i) => (
+                    <motion.div 
+                        key={step.num} 
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: i * 0.15 }}
+                        className="flex gap-6 group relative"
+                    >
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-zinc-900 border border-white/10 flex items-center justify-center text-sm font-bold text-zinc-400 group-hover:bg-emerald-500 group-hover:border-emerald-400 group-hover:text-black transition-all duration-500 shadow-md">
+                        {step.num}
                       </div>
-                    </div>
+                      <div className="pt-1">
+                        <h4 className="text-xl font-bold text-white mb-2 tracking-tight group-hover:text-emerald-400 transition-colors">{step.title}</h4>
+                        <p className="text-zinc-400 leading-relaxed text-base md:text-lg font-normal">{step.desc}</p>
+                      </div>
+                    </motion.div>
                   ))}
                 </div>
               </div>
-              <GlowCard className="p-0 !bg-black/40">
-                <div className="p-8 space-y-4 font-mono text-sm text-zinc-400">
-                  <div className="flex justify-between items-center p-4 rounded-xl bg-white/[0.02] border border-white/5">
-                    <span>Searching job boards...</span>
-                    <span className="text-emerald-400">Done</span>
+              
+              {/* Premium Mac-Style Terminal Console */}
+              <GlowCard className="p-0 !bg-black/80 overflow-hidden border border-white/10 shadow-[0_30px_100px_rgba(0,0,0,0.8)]">
+                {/* Mac Header */}
+                <div className="flex items-center gap-2 px-6 py-4 border-b border-white/5 bg-zinc-950">
+                  <div className="w-3 h-3 rounded-full bg-rose-500/80 shadow-[0_0_10px_rgba(239,68,68,0.2)]" />
+                  <div className="w-3 h-3 rounded-full bg-amber-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-emerald-500/80 shadow-[0_0_10px_rgba(16,185,129,0.2)]" />
+                  <span className="text-[11px] font-mono text-zinc-500 ml-4">careerx_engine.sh</span>
+                </div>
+                
+                <div className="p-8 space-y-6 font-mono text-xs text-zinc-400">
+                  <div className="flex justify-between items-center p-4 rounded-2xl bg-white/[0.01] border border-white/5 hover:border-white/10 transition-all duration-300">
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      <span>Searching online job boards...</span>
+                    </div>
+                    <span className="text-emerald-400 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/20">SUCCESS</span>
                   </div>
-                  <div className="flex justify-between items-center p-4 rounded-xl bg-white/[0.02] border border-white/5">
-                    <span>Reading 10 recent articles...</span>
-                    <span className="text-emerald-400">Done</span>
+                  <div className="flex justify-between items-center p-4 rounded-2xl bg-white/[0.01] border border-white/5 hover:border-white/10 transition-all duration-300">
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      <span>Processing live RAG documents...</span>
+                    </div>
+                    <span className="text-emerald-400 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/20">DONE</span>
                   </div>
-                  <div className="flex justify-between items-center p-4 rounded-xl bg-white/[0.02] border border-white/5">
-                    <span>Checking university catalogs...</span>
-                    <span className="text-emerald-400">Done</span>
+                  <div className="flex justify-between items-center p-4 rounded-2xl bg-white/[0.01] border border-white/5 hover:border-white/10 transition-all duration-300">
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      <span>Parsing university catalogs...</span>
+                    </div>
+                    <span className="text-emerald-400 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/20">COMPILED</span>
                   </div>
-                  <div className="flex justify-between items-center p-4 rounded-xl bg-white/[0.02] border border-white/5">
-                    <span>Formatting your roadmap...</span>
-                    <span className="text-emerald-400">Done</span>
+                  <div className="flex justify-between items-center p-4 rounded-2xl bg-white/[0.01] border border-white/5 hover:border-white/10 transition-all duration-300">
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      <span>Synthesizing roadmap nodes...</span>
+                    </div>
+                    <span className="text-emerald-400 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/20">READY</span>
                   </div>
-                  <div className="flex justify-between items-center p-4 rounded-xl border border-indigo-500/30 bg-indigo-500/10 text-indigo-300">
-                    <span>Report ready to view.</span>
-                    <ExternalLink className="w-4 h-4" />
+                  <div className="flex justify-between items-center p-4 rounded-2xl border border-indigo-500/30 bg-indigo-500/10 text-indigo-300 shadow-[0_0_30px_rgba(99,102,241,0.15)] transition-all duration-300 animate-bounce">
+                    <div className="flex items-center gap-3">
+                      <Activity className="w-4 h-4 text-indigo-400 animate-pulse" />
+                      <span className="font-semibold">Interactive Report Loaded</span>
+                    </div>
+                    <ExternalLink className="w-4 h-4 text-indigo-400" />
                   </div>
                 </div>
               </GlowCard>
@@ -365,80 +477,141 @@ export default function LandingPage() {
         </section>
 
         {/* Traditional vs CareerX */}
-        <section className="py-24 px-6 md:px-12 bg-[#0A0A0A] relative border-t border-white/5">
+        <section className="py-24 px-6 md:px-12 bg-[#080808] relative border-t border-white/5">
             <div className="max-w-7xl mx-auto">
-                <div className="text-center mb-16">
-                    <h2 className="text-4xl font-semibold tracking-tight text-white mb-4">Why we built this.</h2>
-                    <p className="text-zinc-400 text-xl max-w-2xl mx-auto">Standard career advice is often disconnected from the realities of the modern job market.</p>
+                <div className="text-center mb-20">
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 mb-5 text-xs font-semibold tracking-wider uppercase text-amber-400"
+                    >
+                        Comparison
+                    </motion.div>
+                    <h2 className="text-4xl font-bold tracking-tight text-white mb-4">Why we built CareerX</h2>
+                    <p className="text-zinc-400 text-lg md:text-xl max-w-2xl mx-auto font-normal leading-relaxed">
+                        Conventional career platforms rely on historical indices that completely ignore modern workplace adjustments.
+                    </p>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-0 border border-white/10 rounded-[2rem] overflow-hidden">
-                    <div className="p-10 md:p-14 bg-zinc-900/20 border-b md:border-b-0 md:border-r border-white/10">
-                        <h3 className="text-2xl font-medium text-white mb-8 tracking-tight flex items-center gap-3">
-                            <span className="text-rose-500">✕</span> Traditional Advice
+                <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                    {/* Traditional */}
+                    <motion.div 
+                        initial={{ opacity: 0, x: -30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        className="p-10 md:p-12 bg-zinc-950/40 border border-red-500/10 rounded-[2.5rem] relative overflow-hidden group hover:border-red-500/25 transition-all duration-500 shadow-xl"
+                    >
+                        <div className="absolute top-0 right-0 w-48 h-48 bg-rose-500/[0.01] rounded-full blur-[80px]" />
+                        <h3 className="text-2xl font-bold text-rose-500 mb-8 tracking-tight flex items-center gap-3.5">
+                            <span className="w-8 h-8 rounded-full bg-rose-500/10 flex items-center justify-center text-rose-400 text-sm border border-rose-500/20">✕</span> 
+                            Traditional Advice
                         </h3>
-                        <ul className="space-y-6 text-zinc-400 text-lg">
-                            <li>Relying on years-old salary surveys and generalized government data.</li>
-                            <li>Telling you to &quot;follow your passion&quot; without a realistic financial plan.</li>
-                            <li>Broad college major recommendations without specific skill requirements.</li>
-                            <li>No way to know if a job will exist in 5 years.</li>
+                        <ul className="space-y-6 text-zinc-400 text-base md:text-lg font-normal">
+                          {[
+                            "Relying on years-old static surveys and generic government statistics.",
+                            "Pushing broad, non-specific general college degrees without financial analysis.",
+                            "Suggesting skills blindly without analyzing live job market postings.",
+                            "Leaving students blind to rapid automation risk and technical shifts."
+                          ].map((item, idx) => (
+                            <li key={idx} className="flex gap-4">
+                              <span className="text-rose-500/50 pt-1 font-mono">•</span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
                         </ul>
-                    </div>
-                    <div className="p-10 md:p-14 bg-indigo-900/10 relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-[80px]" />
-                        <h3 className="text-2xl font-medium text-white mb-8 tracking-tight flex items-center gap-3 relative z-10">
-                            <span className="text-emerald-500">✓</span> The CareerX Approach
+                    </motion.div>
+                    
+                    {/* CareerX */}
+                    <motion.div 
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        className="p-10 md:p-12 bg-indigo-950/15 border border-emerald-500/10 rounded-[2.5rem] relative overflow-hidden group hover:border-emerald-500/25 transition-all duration-500 shadow-xl"
+                    >
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/[0.03] rounded-full blur-[90px]" />
+                        <h3 className="text-2xl font-bold text-emerald-400 mb-8 tracking-tight flex items-center gap-3.5">
+                            <span className="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400 text-sm border border-emerald-500/20">✓</span> 
+                            The CareerX Approach
                         </h3>
-                        <ul className="space-y-6 text-zinc-300 text-lg relative z-10">
-                            <li>Real-time scraping of current job postings to find actual salary ranges today.</li>
-                            <li>Matching your interests with financially viable and growing markets.</li>
-                            <li>Extracting the exact software tools and soft skills mentioned in current job descriptions.</li>
-                            <li>Market trend analysis to ensure you are entering a growing field.</li>
+                        <ul className="space-y-6 text-zinc-300 text-base md:text-lg font-normal">
+                          {[
+                            "Live-scraping real-time job boards for high-fidelity salary insights.",
+                            "Directly correlating user interests with economically expanding markets.",
+                            "Extracting exact up-to-date tool, framework, and certification requirements.",
+                            "Continuous updates reflecting live hiring demands and active trends."
+                          ].map((item, idx) => (
+                            <li key={idx} className="flex gap-4">
+                              <span className="text-emerald-400 pt-1 font-semibold">✓</span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
                         </ul>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </section>
 
         {/* FAQ */}
         <section id="faq" className="py-32 px-6 md:px-12 bg-[#050505] relative border-t border-white/5">
-            <div className="max-w-3xl mx-auto">
-                <div className="mb-16">
-                    <h2 className="text-4xl font-semibold tracking-tight text-white mb-4">Frequently Asked Questions</h2>
+            <div className="max-w-4xl mx-auto">
+                <div className="text-center mb-20">
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-violet-500/30 bg-violet-500/10 mb-5 text-xs font-semibold tracking-wider uppercase text-violet-400"
+                    >
+                        FAQ
+                    </motion.div>
+                    <h2 className="text-4xl font-bold tracking-tight text-white mb-4">Frequently Asked Questions</h2>
+                    <p className="text-zinc-400 text-lg max-w-xl mx-auto font-normal">
+                        Have some questions about our operations? We have answered the most common ones.
+                    </p>
                 </div>
-                <div className="border-t border-white/10">
+                <div className="border-t border-white/10 max-w-3xl mx-auto bg-zinc-950/20 p-8 md:p-12 rounded-[2.5rem] border border-white/5">
                     <FAQItem 
                         question="Is it completely free to use?" 
-                        answer="Yes. There are no paywalls, subscriptions, or hidden fees. We believe everyone deserves access to data-backed career guidance."
+                        answer="Yes. There are no paywalls, locked features, subscriptions, or hidden costs. CareerX is fully designed to deliver open, data-driven academic and professional path assistance."
                     />
                     <FAQItem 
                         question="Do I need to create an account?" 
-                        answer="No. To protect your privacy, we don't even have a user database. Your session data is stored locally in your browser and is destroyed as soon as you close the tab."
+                        answer="An account is highly recommended! Signing up lets you save your reports to our secure cloud database, update your roadmap progress, and utilize our premium ATS resume optimizer."
                     />
                     <FAQItem 
                         question="How accurate is the salary data?" 
-                        answer="Instead of relying on static, outdated surveys, our system searches live job boards (like Indeed, LinkedIn, and Glassdoor) during your session to find current, location-specific salary data."
+                        answer="We do not rely on static tables. During your generation session, we run active searches on live databases to fetch contemporary, geographically specific salary curves."
                     />
                     <FAQItem 
-                        question="Can I save my report?" 
-                        answer="Yes! Once your dashboard is generated, you can click the 'Export PDF' button to save a beautifully formatted copy of your roadmap to your device."
+                        question="Can I export my custom roadmap?" 
+                        answer="Absolutely! Once your report is generated, clicking the 'Export PDF' button formats your strategic timeline into a beautiful, publication-grade print format."
                     />
                 </div>
             </div>
         </section>
 
         {/* CTA */}
-        <section className="py-40 px-6 md:px-12 relative overflow-hidden flex justify-center border-t border-white/5 bg-[#0A0A0A]">
+        <section className="py-44 px-6 md:px-12 relative overflow-hidden flex justify-center border-t border-white/5 bg-[#080808]">
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-indigo-950/20 pointer-events-none" />
+          <div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-indigo-500/5 rounded-full blur-[140px] pointer-events-none" />
+          
           <div className="max-w-4xl text-center relative z-10">
-            <h2 className="text-5xl md:text-7xl font-semibold mb-8 tracking-tighter text-white">Find your direction.</h2>
-            <p className="text-zinc-400 text-xl md:text-2xl mb-12 tracking-tight">Stop guessing. Get a clear, actionable plan based on what the real world actually demands.</p>
-            <Link href="/onboarding">
-              <Button className="h-16 px-12 rounded-full font-medium text-lg bg-white text-black hover:bg-zinc-200 transition-all flex items-center justify-center gap-3 mx-auto shadow-[0_0_50px_rgba(255,255,255,0.15)] hover:shadow-[0_0_80px_rgba(255,255,255,0.3)] group">
-                Start Your Assessment
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
+            <h2 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 tracking-tighter text-white leading-tight">Find your direction.</h2>
+            <p className="text-zinc-400 text-lg md:text-2xl max-w-3xl mx-auto mb-14 font-normal leading-relaxed tracking-tight">
+              Stop guessing. Access a structured, step-by-step career path based exactly on what the real-world job market demands today.
+            </p>
+            <motion.div
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              className="inline-block"
+            >
+              <Link href="/onboarding">
+                <Button className="h-16 px-12 rounded-full font-bold text-lg bg-white text-black hover:bg-zinc-100 transition-all flex items-center justify-center gap-3.5 mx-auto shadow-[0_0_50px_rgba(255,255,255,0.18)] hover:shadow-[0_0_80px_rgba(255,255,255,0.35)] group cursor-pointer">
+                  Start Your Assessment
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
+                </Button>
+              </Link>
+            </motion.div>
           </div>
         </section>
 
