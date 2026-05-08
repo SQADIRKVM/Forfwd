@@ -59,6 +59,16 @@ export const metadata: Metadata = {
     description: "Next-generation academic and career guidance platform leveraging Retrieval-Augmented Generation (RAG) to build personalized, real-time trajectories based on live job market and university data.",
     images: ["/og-image.png"],
   },
+  icons: {
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' }
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }
+    ]
+  },
+  manifest: '/site.webmanifest',
 };
 
 export default function RootLayout({
