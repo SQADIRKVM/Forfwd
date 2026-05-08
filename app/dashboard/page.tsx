@@ -134,7 +134,7 @@ function PivotSandbox({ currentPath }: { currentPath: string }) {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-[10px] font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-2">Sandbox Mode</div>
-                    <h3 className="text-xl font-bold text-slate-800 dark:text-white">Interactive Career Pivot Simulator</h3>
+                    <h3 className="text-xl font-bold text-slate-800 dark:text-white">Interactive Career Explorer</h3>
                     <p className="text-xs text-slate-500 dark:text-zinc-400 mt-1">Calculate transferable skills and bridge gaps to any alternative career target instantly.</p>
                 </div>
                 <form onSubmit={handleSimulate} className="flex gap-2.5 shrink-0 max-w-md w-full">
@@ -158,7 +158,7 @@ function PivotSandbox({ currentPath }: { currentPath: string }) {
                         ) : (
                             <>
                                 <Sparkles className="w-3.5 h-3.5" />
-                                Simulate Pivot
+                                Explore Shift
                             </>
                         )}
                     </button>
@@ -199,7 +199,7 @@ function PivotSandbox({ currentPath }: { currentPath: string }) {
                         </div>
 
                         <div className="space-y-4">
-                            <p className="text-[10px] font-black text-slate-400 dark:text-zinc-500 uppercase tracking-widest">3-Year Strategic Transition Path</p>
+                            <p className="text-[10px] font-black text-slate-400 dark:text-zinc-500 uppercase tracking-widest">My 3-Year Transition Path</p>
                             <div className="grid sm:grid-cols-3 gap-4">
                                 {result.transitionPlan.map((p, i) => (
                                     <div key={i} className="p-4 rounded-xl border border-slate-200 dark:border-white/5 bg-slate-100/50 dark:bg-black/25">
@@ -627,7 +627,7 @@ function SkillsSection({ data, completedMilestones = [], onToggleMilestone, trac
                         <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-white text-slate-800 dark:text-black flex items-center justify-center shrink-0 group-hover:rotate-6 transition-transform shadow-[0_0_25px_rgba(255,255,255,0.1)]">
                             <TrendingUp className="w-5 h-5" />
                         </div>
-                        Strategic Capability Roadmap
+                        My Career Roadmap
                     </h2>
 
                     {/* Interactive Completion Progress Bar */}
@@ -983,7 +983,7 @@ function AdvisorySection({ data }: { data: DashboardData }) {
                 <div className="flex items-center gap-5">
                     <div className="w-12 h-12 rounded-xl bg-white text-black flex items-center justify-center shadow-xl hover:rotate-6 transition-transform"><Bot className="w-6 h-6" /></div>
                     <div>
-                        <h4 className="text-xl font-bold text-white tracking-tight">AI Strategic Advisor</h4>
+                        <h4 className="text-xl font-bold text-white tracking-tight">AI Career Advisor</h4>
                         <div className="flex items-center gap-2 mt-1">
                             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                             <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Systems Active</span>
@@ -1113,7 +1113,7 @@ function AtsScannerSection({ data }: { data: DashboardData }) {
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-[10px] font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-4">Diagnostic Tool</div>
                     <h3 className="text-2xl font-bold text-slate-800 dark:text-white tracking-tight flex items-center gap-4">
                         <FileText className="w-7 h-7 text-indigo-500 dark:text-indigo-400 animate-pulse" />
-                        ATS Compatibility Scan
+                        Resume Keyword Optimizer
                     </h3>
                     <p className="text-sm text-slate-500 dark:text-zinc-400 font-medium mt-4 leading-relaxed">Cross-reference your current profile assets against algorithmic hiring patterns.</p>
                 </div>
@@ -1267,7 +1267,7 @@ function AtsScannerSection({ data }: { data: DashboardData }) {
 
                         <div className="bg-slate-100 dark:bg-zinc-900/60 p-8 rounded-[2.5rem] border border-slate-200 dark:border-white/5 relative overflow-hidden group/feedback hover:border-slate-300 dark:hover:border-white/10 transition-all">
                             <div className="absolute top-0 right-0 p-6 pointer-events-none opacity-20 group-hover/feedback:opacity-100 transition-opacity"><Sparkles className="w-8 h-8 text-indigo-400" /></div>
-                            <h4 className="text-[10px] font-black text-slate-400 dark:text-zinc-500 uppercase tracking-wider mb-6 flex items-center gap-3">Strategic Feedback</h4>
+                            <h4 className="text-[10px] font-black text-slate-400 dark:text-zinc-500 uppercase tracking-wider mb-6 flex items-center gap-3">Advisor Feedback</h4>
                             <p className="text-sm text-slate-700 dark:text-zinc-300 leading-relaxed font-bold antialiased">{result.feedback}</p>
                         </div>
                     </div>
@@ -1620,7 +1620,7 @@ export default function DashboardPage() {
                                             <Compass className="h-5 w-5" />
                                         </div>
                                         <div className="min-w-0">
-                                            <p className="truncate text-base font-black text-slate-800 dark:text-white">CareerX Command Center</p>
+                                            <p className="truncate text-base font-black text-slate-800 dark:text-white">CareerX Study Hub</p>
                                             <p className="truncate text-[11px] font-bold text-zinc-500">{storeName || 'Explorer'} &middot; {detectedCat} profile</p>
                                         </div>
                                     </div>
@@ -1716,7 +1716,7 @@ export default function DashboardPage() {
                                             { id: 'roadmap' as const, label: 'Roadmap & Gaps', icon: TrendingUp },
                                             { id: 'jobs' as const, label: 'Job Analytics', icon: Briefcase },
                                             { id: 'network' as const, label: 'Global Network', icon: GraduationCap },
-                                            { id: 'ats' as const, label: 'ATS Intelligence', icon: FileText },
+                                            { id: 'ats' as const, label: 'Resume Optimizer', icon: FileText },
                                             { id: 'learning' as const, label: 'My Learning Hub', icon: BookOpen },
                                         ].map(st => {
                                             const Icon = st.icon;
@@ -1826,8 +1826,8 @@ export default function DashboardPage() {
                                         <motion.div key="ats" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 14 }} transition={{ duration: 0.3 }}>
                                             <section id="ats">
                                                 <div className="mb-12">
-                                                    <h2 className="text-4xl font-bold text-slate-800 dark:text-white tracking-tight mb-4">ATS Intelligence Hub</h2>
-                                                    <p className="text-lg text-slate-500 dark:text-zinc-400 font-medium leading-relaxed">Optimize your profile for modern applicant tracking systems.</p>
+                                                    <h2 className="text-4xl font-bold text-slate-800 dark:text-white tracking-tight mb-4">Resume Optimizer Hub</h2>
+                                                    <p className="text-lg text-slate-500 dark:text-zinc-400 font-medium leading-relaxed">Optimize your profile keywords for modern job applications.</p>
                                                 </div>
                                                 <AtsScannerSection data={data} />
                                             </section>
