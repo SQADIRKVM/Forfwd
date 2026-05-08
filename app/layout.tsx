@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://forfwd.com'),
+  metadataBase: new URL('https://forfwd.tech'),
   alternates: {
     canonical: '/',
   },
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Forfwd — Move forward. Plan better.",
     description: "Next-generation academic and career guidance platform leveraging Retrieval-Augmented Generation (RAG) to build personalized, real-time trajectories based on live job market and university data.",
-    url: "https://forfwd.com",
+    url: "https://forfwd.tech",
     siteName: "Forfwd",
     images: [
       {
@@ -86,8 +86,8 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "WebApplication",
               "name": "Forfwd",
-              "url": "https://forfwd.com",
-              "logo": "https://forfwd.com/logo.png",
+              "url": "https://forfwd.tech",
+              "logo": "https://forfwd.tech/logo.png",
               "description": "Next-generation academic and career guidance platform leveraging Retrieval-Augmented Generation (RAG) to build personalized, real-time trajectories.",
               "applicationCategory": "EducationalApplication, BusinessApplication",
               "operatingSystem": "All",

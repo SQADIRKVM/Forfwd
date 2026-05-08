@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://forfwd.com';
+  const baseUrl = 'https://forfwd.tech';
   return [
     { url: baseUrl, lastModified: new Date() },
     { url: `${baseUrl}/resume-scan`, lastModified: new Date() },

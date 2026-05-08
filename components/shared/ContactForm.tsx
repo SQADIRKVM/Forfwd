@@ -84,7 +84,7 @@ export function ContactForm() {
               required
               value={formData.email}
               onChange={handleChange}
-              placeholder="e.g. john@forfwd.com"
+              placeholder="e.g. john@forfwd.tech"
               className="w-full h-12 px-4 rounded-xl border border-zinc-200 dark:border-white/10 bg-zinc-50/50 dark:bg-white/[0.02] text-sm text-zinc-900 dark:text-zinc-50 focus:outline-none focus:border-indigo-500/50 focus:ring-4 focus:ring-indigo-500/10 transition-all font-medium"
             />
           </div>
