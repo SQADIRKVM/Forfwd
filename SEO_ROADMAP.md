@@ -17,10 +17,7 @@ While Vercel's default subdomains (`forfwd.vercel.app`) are excellent for develo
 | **Brand Recognition & CTR** | Low click-through rates (CTR) on Search Engine Results Pages (SERPs). Users hesitate to click on developmental-looking URLs. | Clean, recognizable brand. Drives significantly higher organic click-through rates and customer conversions. |
 | **Social Sharing and OpenGraph** | Many social sharing platforms (LinkedIn, Twitter, Slack) rate-limit or sandbox free subdomains, preventing rich card previews. | Fully white-labeled. Social networks dynamically cache and display your custom OpenGraph cards beautifully. |
 
-### Strategic Domain Purchasing Recommendations
 
-1. **Prioritize TLDs like `.tech` or `.com`:** If `forfwd.com` is taken, highly trusted modern alternates like **`forfwd.tech`**, **`forfwd.co`**, or **`forfwd.io`** are excellent choices.
-2. **Where to Buy:** Use reputable registrars that include free SSL and WHOIS privacy protection, such as **Porkbun**, **Namecheap**, or **Google Domains / Squarespace** (as used for `forfwd.tech`).
 
 ---
 
