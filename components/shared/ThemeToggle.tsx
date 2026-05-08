@@ -14,10 +14,8 @@ export function ThemeToggle({ variant = "light" }: { variant?: "light" | "dark" 
 
   const isDark = theme === "dark";
   
-  // Styles adapt based on the page background variant
-  const styles = variant === "dark"
-    ? "bg-white/10 hover:bg-white/20 border-white/10 text-zinc-300 hover:text-white"
-    : "bg-slate-100 hover:bg-slate-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 border-slate-200 dark:border-zinc-700 text-slate-600 dark:text-zinc-300";
+  // Styles adapt automatically based on active theme
+  const styles = "bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 border-slate-200 dark:border-white/10 text-slate-600 hover:text-slate-900 dark:text-zinc-300 dark:hover:text-white";
 
   return (
     <button

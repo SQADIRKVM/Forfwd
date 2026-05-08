@@ -58,7 +58,7 @@ export function AuthModal({ isOpen, onClose, defaultView = "signin" }: AuthModal
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-md p-0 overflow-hidden border border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#0a0a0a]/95 backdrop-blur-xl rounded-[2.5rem] shadow-2xl relative">
+      <DialogContent showCloseButton={false} className="sm:max-w-md p-0 overflow-hidden border border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-[#0a0a0a]/95 backdrop-blur-xl rounded-[2.5rem] shadow-2xl">
         <DialogTitle className="sr-only">{view === "signin" ? "Sign In" : "Sign Up"}</DialogTitle>
         
         {/* Stunning functional close button */}
