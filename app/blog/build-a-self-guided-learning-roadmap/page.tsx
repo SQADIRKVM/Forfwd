@@ -4,9 +4,35 @@ import Link from "next/link";
 import { ArrowLeft, Clock, Calendar, Map, Target, Layers } from "lucide-react";
 import { motion } from "framer-motion";
 
+const ARTICLE_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Build Your Own Learning Roadmap for High-Growth Tech Careers",
+  "description": "You don't need a top university degree to break into tech in 2026. What you need is a clear, structured self-guided learning roadmap — and the discipline to follow it.",
+  "datePublished": "2026-05-06",
+  "dateModified": "2026-05-06",
+  "author": { "@type": "Organization", "name": "Forfwd", "url": "https://forfwd.tech" },
+  "publisher": { "@type": "Organization", "name": "Forfwd", "logo": { "@type": "ImageObject", "url": "https://forfwd.tech/banner.png" } },
+  "url": "https://forfwd.tech/blog/build-a-self-guided-learning-roadmap",
+  "mainEntityOfPage": "https://forfwd.tech/blog/build-a-self-guided-learning-roadmap",
+  "keywords": ["learning roadmap", "self-guided learning", "tech career", "career roadmap 2026", "skill acquisition", "AI career guidance"]
+};
+
+const BREADCRUMB_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://forfwd.tech" },
+    { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://forfwd.tech/blog" },
+    { "@type": "ListItem", "position": 3, "name": "How to Build Your Own Learning Roadmap for High-Growth Tech Careers", "item": "https://forfwd.tech/blog/build-a-self-guided-learning-roadmap" }
+  ]
+};
+
 export default function LearningRoadmapPost() {
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-[#080808] text-slate-900 dark:text-zinc-50 font-sans selection:bg-indigo-200 dark:selection:bg-emerald-500/25 antialiased overflow-hidden">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ARTICLE_SCHEMA) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(BREADCRUMB_SCHEMA) }} />
       <div
         className="absolute inset-0 opacity-[0.03] dark:opacity-[0.06] pointer-events-none"
         style={{

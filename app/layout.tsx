@@ -83,27 +83,59 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebApplication",
-              "name": "Forfwd",
-              "url": "https://forfwd.tech",
-              "logo": "https://forfwd.tech/logo.png",
-              "description": "Next-generation academic and career guidance platform leveraging Retrieval-Augmented Generation (RAG) to build personalized, real-time trajectories.",
-              "applicationCategory": "EducationalApplication, BusinessApplication",
-              "operatingSystem": "All",
-              "offers": {
-                "@type": "Offer",
-                "price": "0.00",
-                "priceCurrency": "USD"
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "Forfwd",
+                "url": "https://forfwd.tech",
+                "logo": "https://forfwd.tech/banner.png",
+                "description": "Next-generation AI-powered career guidance and academic planning platform.",
+                "sameAs": [],
+                "contactPoint": {
+                  "@type": "ContactPoint",
+                  "contactType": "Customer Support",
+                  "email": "support@forfwd.tech"
+                }
               },
-              "featureList": [
-                "Real-Time Market RAG Analysis",
-                "Interactive Orbit Trajectory Map",
-                "AI Career Advisory Concierge",
-                "ATS Compatibility Resume Scanner"
-              ]
-            })
+              {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "name": "Forfwd",
+                "url": "https://forfwd.tech",
+                "potentialAction": {
+                  "@type": "SearchAction",
+                  "target": {
+                    "@type": "EntryPoint",
+                    "urlTemplate": "https://forfwd.tech/blog?q={search_term_string}"
+                  },
+                  "query-input": "required name=search_term_string"
+                }
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "WebApplication",
+                "name": "Forfwd",
+                "url": "https://forfwd.tech",
+                "logo": "https://forfwd.tech/banner.png",
+                "description": "Next-generation academic and career guidance platform leveraging Retrieval-Augmented Generation (RAG) to build personalized, real-time trajectories.",
+                "applicationCategory": "EducationalApplication, BusinessApplication",
+                "operatingSystem": "All",
+                "offers": {
+                  "@type": "Offer",
+                  "price": "0.00",
+                  "priceCurrency": "USD"
+                },
+                "featureList": [
+                  "Real-Time Market RAG Analysis",
+                  "Visual Career Roadmaps",
+                  "AI Career Advisory Concierge",
+                  "ATS Compatibility Resume Scanner",
+                  "Career Pivot Simulator",
+                  "Skill Gap Analysis"
+                ]
+              }
+            ])
           }}
         />
       </head>

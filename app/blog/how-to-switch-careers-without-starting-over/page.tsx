@@ -4,9 +4,41 @@ import Link from "next/link";
 import { ArrowLeft, Clock, Calendar, Zap, BookOpen, RefreshCw } from "lucide-react";
 import { motion } from "framer-motion";
 
+// ─── Per-Page SEO Metadata ────────────────────────────────────────────────────
+// Note: metadata export must be in a Server Component. Move to a parent layout
+// or use generateMetadata in a server wrapper if needed.
+// For now, the global layout.tsx covers the baseline; article schemas are injected inline.
+
+const ARTICLE_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Switch Careers Without Starting Over",
+  "description": "Thinking about changing careers but terrified of losing everything you've built? Here's how to transfer your existing skills into a completely new field — without going back to square one.",
+  "datePublished": "2026-05-08",
+  "dateModified": "2026-05-08",
+  "author": { "@type": "Organization", "name": "Forfwd", "url": "https://forfwd.tech" },
+  "publisher": { "@type": "Organization", "name": "Forfwd", "logo": { "@type": "ImageObject", "url": "https://forfwd.tech/banner.png" } },
+  "url": "https://forfwd.tech/blog/how-to-switch-careers-without-starting-over",
+  "mainEntityOfPage": "https://forfwd.tech/blog/how-to-switch-careers-without-starting-over",
+  "keywords": ["career change", "career pivot", "transferable skills", "career switch", "AI career advisor"]
+};
+
+const BREADCRUMB_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://forfwd.tech" },
+    { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://forfwd.tech/blog" },
+    { "@type": "ListItem", "position": 3, "name": "How to Switch Careers Without Starting Over", "item": "https://forfwd.tech/blog/how-to-switch-careers-without-starting-over" }
+  ]
+};
+
+
 export default function CareerSwitchPost() {
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-[#080808] text-slate-900 dark:text-zinc-50 font-sans selection:bg-indigo-200 dark:selection:bg-emerald-500/25 antialiased overflow-hidden">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ARTICLE_SCHEMA) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(BREADCRUMB_SCHEMA) }} />
       <div
         className="absolute inset-0 opacity-[0.03] dark:opacity-[0.06] pointer-events-none"
         style={{

@@ -4,9 +4,35 @@ import Link from "next/link";
 import { ArrowLeft, Clock, Calendar, FileText, Search, CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
+const ARTICLE_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Beat the ATS: Resume Tips That Actually Work in 2026",
+  "description": "Most resumes never reach a human being. They get filtered out by an Applicant Tracking System. Here's exactly how to write a resume that passes ATS checks and lands interviews.",
+  "datePublished": "2026-05-07",
+  "dateModified": "2026-05-07",
+  "author": { "@type": "Organization", "name": "Forfwd", "url": "https://forfwd.tech" },
+  "publisher": { "@type": "Organization", "name": "Forfwd", "logo": { "@type": "ImageObject", "url": "https://forfwd.tech/banner.png" } },
+  "url": "https://forfwd.tech/blog/beat-the-ats-resume-tips-that-actually-work",
+  "mainEntityOfPage": "https://forfwd.tech/blog/beat-the-ats-resume-tips-that-actually-work",
+  "keywords": ["ATS resume", "resume tips 2026", "applicant tracking system", "beat ATS", "resume optimization", "ATS scanner"]
+};
+
+const BREADCRUMB_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://forfwd.tech" },
+    { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://forfwd.tech/blog" },
+    { "@type": "ListItem", "position": 3, "name": "Beat the ATS: Resume Tips That Actually Work in 2026", "item": "https://forfwd.tech/blog/beat-the-ats-resume-tips-that-actually-work" }
+  ]
+};
+
 export default function ATSResumePost() {
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-[#080808] text-slate-900 dark:text-zinc-50 font-sans selection:bg-indigo-200 dark:selection:bg-emerald-500/25 antialiased overflow-hidden">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ARTICLE_SCHEMA) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(BREADCRUMB_SCHEMA) }} />
       <div
         className="absolute inset-0 opacity-[0.03] dark:opacity-[0.06] pointer-events-none"
         style={{
