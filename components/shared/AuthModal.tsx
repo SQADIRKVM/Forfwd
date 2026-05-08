@@ -76,12 +76,7 @@ export function AuthModal({ isOpen, onClose, defaultView = "signin" }: AuthModal
 
         <div className="p-8 md:p-10 relative z-10">
           <div className="flex justify-center mb-6">
-            <div className="flex items-center gap-3 group">
-              <div className="w-12 h-12 rounded-2xl bg-indigo-600 dark:bg-white text-white dark:text-black flex items-center justify-center shadow-lg hover:rotate-6 transition-transform duration-300">
-                <Compass className="w-6 h-6" />
-              </div>
-              <span className="text-2xl font-black tracking-tight text-zinc-900 dark:text-white">CareerX</span>
-            </div>
+            <img src="/banner.png" alt="Forfwd" className="h-15 w-auto object-contain" />
           </div>
 
           <div className="text-center mb-8">

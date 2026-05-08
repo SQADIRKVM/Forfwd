@@ -117,7 +117,7 @@ export default function SecurityPage() {
           Danger Zone
         </h4>
         <p className="text-sm text-slate-500 dark:text-zinc-500 mt-2 max-w-md">
-          Permanently delete your CareerX account and all associated data including your reports, questionnaire answers, and profile. This action <strong className="text-rose-500">cannot be undone</strong>.
+          Permanently delete your Forfwd account and all associated data including your reports, questionnaire answers, and profile. This action <strong className="text-rose-500">cannot be undone</strong>.
         </p>
 
         {!showDeleteConfirm ? (

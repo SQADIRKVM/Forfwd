@@ -25,3 +25,12 @@ model TrackedCourse {
   reminderAt  String?  // e.g., "Tuesdays at 6:00 PM"
   createdAt   DateTime @default(now())
 }
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  createdAt DateTime @default(now())
+}

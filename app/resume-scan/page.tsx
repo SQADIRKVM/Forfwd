@@ -109,7 +109,7 @@ export default function ResumeScanPage() {
               <div className="w-8 h-8 rounded bg-indigo-600 flex items-center justify-center transition-transform group-hover:rotate-6 shadow-sm">
                 <Compass className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold tracking-tight hidden sm:block">CareerX</span>
+              <span className="text-xl font-bold tracking-tight hidden sm:block">Forfwd</span>
             </Link>
             <div className="h-6 w-px bg-slate-200 dark:bg-white/10 hidden sm:block" />
             <Link href="/dashboard" className="text-sm font-semibold text-slate-500 dark:text-zinc-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center gap-1.5">

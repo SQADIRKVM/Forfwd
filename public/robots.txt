@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Allow: /resume-scan
+Allow: /chat
+Disallow: /dashboard
+Disallow: /settings/
+Disallow: /history
+
+Sitemap: https://forfwd.com/sitemap.xml

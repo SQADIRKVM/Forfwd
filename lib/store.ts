@@ -34,7 +34,7 @@ export const useOnboardingStore = create<OnboardingState>()(
             clearSession: () => set({ userName: '', studentType: '', location: 'Global', currency: 'USD', questionnaireAnswers: {} }),
         }),
         {
-            name: 'careerx-onboarding-storage',
+            name: 'forfwd-onboarding-storage',
         }
     )
 );

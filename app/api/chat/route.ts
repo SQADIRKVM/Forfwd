@@ -7,9 +7,9 @@ export async function POST(req: Request) {
     const { messages, context } = await req.json();
 
     // Build a system prompt grounded in the student's dashboard data
-    const systemPrompt = `You are CareerX AI, a world-class career counselor with deep knowledge of universities, career paths, job markets, and skill development.
+    const systemPrompt = `You are Forfwd AI, a world-class career counselor with deep knowledge of universities, career paths, job markets, and skill development.
 
-You are currently helping a specific student who has already received their personalized CareerX dashboard. You have full context of their profile and recommendations below.
+You are currently helping a specific student who has already received their personalized Forfwd dashboard. You have full context of their profile and recommendations below.
 
 STUDENT CONTEXT:
 ${context ? JSON.stringify(context, null, 2) : 'No context provided yet.'}

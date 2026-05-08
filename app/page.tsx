@@ -102,10 +102,7 @@ export default function LandingPage() {
         <header className="w-full border-b border-zinc-200 dark:border-white/5 bg-white/60 dark:bg-black/40 backdrop-blur-xl sticky top-0 z-50">
           <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4 md:px-12">
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-8 h-8 rounded-lg bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-white/10 flex items-center justify-center transition-transform group-hover:scale-105 group-hover:border-zinc-300 dark:group-hover:border-white/20">
-                <Compass className="w-4 h-4 text-zinc-900 dark:text-zinc-100" />
-              </div>
-              <span className="text-xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">CareerX</span>
+              <img src="/banner.png" alt="Forfwd" className="h-15 w-auto object-contain transition-transform group-hover:scale-[1.02]" />
             </Link>
             
             <div className="hidden md:flex items-center gap-8">
@@ -122,12 +119,7 @@ export default function LandingPage() {
 
             <div className="flex items-center gap-3">
               {!session ? (
-                <div className="flex items-center gap-3">
-                  <UserAccountNav variant="dark" />
-                  <Button onClick={() => setIsAuthModalOpen(true)} className="bg-zinc-900 dark:bg-white hover:bg-zinc-800 dark:hover:bg-zinc-200 text-white dark:text-black rounded-full px-6 h-10 transition-all font-medium text-sm cursor-pointer">
-                    Sign In
-                  </Button>
-                </div>
+                <UserAccountNav variant="dark" />
               ) : (
                 <div className="flex items-center gap-3">
                   <Link href="/dashboard">
@@ -150,14 +142,14 @@ export default function LandingPage() {
           <div className="max-w-4xl mx-auto text-center z-10">
             
             <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-zinc-200 dark:border-white/10 bg-white/50 dark:bg-white/5 mb-8 text-sm font-medium text-zinc-700 dark:text-zinc-300 backdrop-blur-md shadow-xl"
-            >
-              <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              Secure, Private, and AI-Powered.
-            </motion.div>
+               initial={{ opacity: 0, scale: 0.95 }}
+               animate={{ opacity: 1, scale: 1 }}
+               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+               className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/[0.04] mb-8 text-xs md:text-sm font-semibold text-zinc-600 dark:text-zinc-300 backdrop-blur-md shadow-sm"
+             >
+               <span className="flex h-2 w-2 rounded-full bg-indigo-500 animate-pulse"></span>
+               Move forward. Plan better.
+             </motion.div>
 
             <motion.h1 
               initial={{ opacity: 0, y: 40 }}
@@ -166,7 +158,7 @@ export default function LandingPage() {
               className="text-5xl md:text-7xl lg:text-[6.5rem] font-semibold tracking-tighter mb-8 text-zinc-900 dark:text-white leading-[1.05]"
             >
               Stop guessing your <br/>
-              <span className="text-zinc-400 dark:text-zinc-500">career path.</span>
+              <span className="bg-gradient-to-r from-indigo-500 via-blue-500 to-cyan-500 bg-clip-text text-transparent">career path.</span>
             </motion.h1>
 
             <motion.p 
@@ -185,13 +177,15 @@ export default function LandingPage() {
               className="flex justify-center items-center flex-col sm:flex-row gap-4"
             >
               {!session ? (
-                <Button onClick={() => setIsAuthModalOpen(true)} className="h-14 px-10 rounded-full font-medium text-base bg-zinc-900 dark:bg-white text-white dark:text-black hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all flex items-center justify-center gap-2 group shadow-[0_4px_20px_rgba(0,0,0,0.1)] dark:shadow-[0_0_40px_rgba(255,255,255,0.1)]">
-                  Sign In to Start
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
+                <Link href="/onboarding">
+                  <Button className="h-14 px-10 rounded-full font-bold text-base bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-500 hover:from-indigo-700 hover:via-blue-700 hover:to-cyan-600 text-white transition-all flex items-center justify-center gap-2 group shadow-[0_4px_20px_rgba(79,70,229,0.25)] dark:shadow-[0_0_40px_rgba(79,70,229,0.15)]">
+                    Start Planning Free
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
               ) : (
                 <Link href="/dashboard">
-                  <Button className="h-14 px-10 rounded-full font-medium text-base bg-zinc-900 dark:bg-white text-white dark:text-black hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all flex items-center justify-center gap-2 group shadow-[0_4px_20px_rgba(0,0,0,0.1)] dark:shadow-[0_0_40px_rgba(255,255,255,0.1)]">
+                  <Button className="h-14 px-10 rounded-full font-bold text-base bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-500 hover:from-indigo-700 hover:via-blue-700 hover:to-cyan-600 text-white transition-all flex items-center justify-center gap-2 group shadow-[0_4px_20px_rgba(79,70,229,0.25)] dark:shadow-[0_0_40px_rgba(79,70,229,0.15)]">
                     Go to Dashboard
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Button>
@@ -221,7 +215,7 @@ export default function LandingPage() {
                     >
                         Audience Profiles
                     </motion.div>
-                    <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-zinc-900 dark:text-white mb-5">Who is CareerX built for?</h2>
+                    <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-zinc-900 dark:text-white mb-5">Who is Forfwd built for?</h2>
                     <p className="text-zinc-600 dark:text-zinc-400 text-lg md:text-xl max-w-2xl mx-auto font-normal leading-relaxed">
                         Whether you are navigating high school, orchestrating a mid-career pivot, or optimizing a resume, we find the real-time data that matters to you.
                     </p>
@@ -289,7 +283,7 @@ export default function LandingPage() {
                 </motion.div>
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-zinc-900 dark:text-white leading-tight">Built on real-time data,<br />not generic assumptions.</h2>
                 <p className="text-zinc-600 dark:text-zinc-400 text-lg md:text-xl leading-relaxed max-w-2xl font-normal">
-                    Traditional career guidance relies on stale datasets. CareerX conducts targeted live-web research to pull precise hiring trends, salaries, and real opinions right now.
+                    Traditional career guidance relies on stale datasets. Forfwd conducts targeted live-web research to pull precise hiring trends, salaries, and real opinions right now.
                 </p>
             </div>
 
@@ -396,7 +390,7 @@ export default function LandingPage() {
                 >
                     Workflow
                 </motion.div>
-                <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-14 text-zinc-900 dark:text-white leading-tight">How CareerX works</h2>
+                <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-14 text-zinc-900 dark:text-white leading-tight">How Forfwd works</h2>
                 <div className="space-y-12 relative before:absolute before:left-5 before:top-4 before:bottom-4 before:w-[2px] before:bg-zinc-200 dark:before:bg-white/5">
                   {[
                     { num: '1', title: 'Tell us about yourself', desc: 'Complete a brief, adaptive questionnaire mapping your existing background, preferred location, target budget, and core academic interests.' },
@@ -430,7 +424,7 @@ export default function LandingPage() {
                   <div className="w-3 h-3 rounded-full bg-rose-500/80 shadow-[0_0_10px_rgba(239,68,68,0.2)]" />
                   <div className="w-3 h-3 rounded-full bg-amber-500/80" />
                   <div className="w-3 h-3 rounded-full bg-emerald-500/80 shadow-[0_0_10px_rgba(16,185,129,0.2)]" />
-                  <span className="text-[11px] font-mono text-zinc-500 ml-4">careerx_engine.sh</span>
+                  <span className="text-[11px] font-mono text-zinc-500 ml-4">forfwd_engine.sh</span>
                 </div>
                 
                 <div className="p-8 space-y-6 font-mono text-xs text-zinc-400">
@@ -475,7 +469,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* Traditional vs CareerX */}
+        {/* Traditional vs Forfwd */}
         <section className="py-24 px-6 md:px-12 bg-zinc-50 dark:bg-[#080808] relative border-t border-zinc-200 dark:border-white/5">
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-20">
@@ -487,7 +481,7 @@ export default function LandingPage() {
                     >
                         Comparison
                     </motion.div>
-                    <h2 className="text-4xl font-bold tracking-tight text-zinc-900 dark:text-white mb-4">Why we built CareerX</h2>
+                    <h2 className="text-4xl font-bold tracking-tight text-zinc-900 dark:text-white mb-4">Why we built Forfwd</h2>
                     <p className="text-zinc-600 dark:text-zinc-400 text-lg md:text-xl max-w-2xl mx-auto font-normal leading-relaxed">
                         Conventional career platforms rely on historical indices that completely ignore modern workplace adjustments.
                     </p>
@@ -521,17 +515,17 @@ export default function LandingPage() {
                         </ul>
                     </motion.div>
                     
-                    {/* CareerX */}
+                    {/* Forfwd */}
                     <motion.div 
                         initial={{ opacity: 0, x: 30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        className="p-10 md:p-12 bg-white dark:bg-indigo-950/15 border border-emerald-500/20 rounded-[2.5rem] relative overflow-hidden group hover:border-emerald-500/25 transition-all duration-500 shadow-xl"
+                        className="p-10 md:p-12 bg-white dark:bg-indigo-950/15 border border-indigo-500/20 rounded-[2.5rem] relative overflow-hidden group hover:border-indigo-500/25 transition-all duration-500 shadow-xl"
                     >
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/[0.03] rounded-full blur-[90px]" />
-                        <h3 className="text-2xl font-bold text-emerald-400 mb-8 tracking-tight flex items-center gap-3.5">
-                            <span className="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400 text-sm border border-emerald-500/20">✓</span> 
-                            The CareerX Approach
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/[0.03] rounded-full blur-[90px]" />
+                        <h3 className="text-2xl font-bold text-indigo-500 dark:text-indigo-400 mb-8 tracking-tight flex items-center gap-3.5">
+                            <span className="w-8 h-8 rounded-full bg-indigo-500/10 flex items-center justify-center text-indigo-500 dark:text-indigo-400 text-sm border border-indigo-500/20">✓</span> 
+                            The Forfwd Approach
                         </h3>
                         <ul className="space-y-6 text-zinc-600 dark:text-zinc-300 text-base md:text-lg font-normal">
                           {[
@@ -541,7 +535,7 @@ export default function LandingPage() {
                             "Continuous updates reflecting live hiring demands and active trends."
                           ].map((item, idx) => (
                             <li key={idx} className="flex gap-4">
-                              <span className="text-emerald-400 pt-1 font-semibold">✓</span>
+                              <span className="text-indigo-500 dark:text-indigo-400 pt-1 font-semibold">✓</span>
                               <span>{item}</span>
                             </li>
                           ))}
@@ -571,7 +565,7 @@ export default function LandingPage() {
                 <div className="border-t border-zinc-200 dark:border-white/10 max-w-3xl mx-auto bg-zinc-50 dark:bg-zinc-950/20 p-8 md:p-12 rounded-[2.5rem] border border-zinc-200 dark:border-white/5">
                     <FAQItem 
                         question="Is it completely free to use?" 
-                        answer="Yes. There are no paywalls, locked features, subscriptions, or hidden costs. CareerX is fully designed to deliver open, data-driven academic and professional path assistance."
+                        answer="Yes. There are no paywalls, locked features, subscriptions, or hidden costs. Forfwd is fully designed to deliver open, data-driven academic and professional path assistance."
                     />
                     <FAQItem 
                         question="Do I need to create an account?" 
@@ -626,13 +620,12 @@ export default function LandingPage() {
         <footer className="py-12 px-6 md:px-12 border-t border-zinc-200 dark:border-white/5 bg-zinc-100 dark:bg-black">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-3">
-              <Compass className="w-5 h-5 text-zinc-500 dark:text-zinc-600" />
-              <span className="text-sm font-medium text-zinc-500 dark:text-zinc-600">CareerX</span>
+              <img src="/banner.png" alt="Forfwd" className="h-10 w-auto object-contain opacity-50 dark:opacity-40 hover:opacity-100 transition-all duration-300" />
             </div>
             <div className="flex gap-8 text-sm font-medium text-zinc-500 dark:text-zinc-600">
-              <a href="#" className="hover:text-zinc-900 dark:hover:text-white transition-colors">Documentation</a>
-              <a href="#" className="hover:text-zinc-900 dark:hover:text-white transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-zinc-900 dark:hover:text-white transition-colors">Terms of Service</a>
+              <Link href="/docs" className="hover:text-zinc-900 dark:hover:text-white transition-colors">Documentation</Link>
+              <Link href="/privacy" className="hover:text-zinc-900 dark:hover:text-white transition-colors">Privacy Policy</Link>
+              <Link href="/terms" className="hover:text-zinc-900 dark:hover:text-white transition-colors">Terms of Service</Link>
             </div>
           </div>
         </footer>

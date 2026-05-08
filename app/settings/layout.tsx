@@ -34,7 +34,7 @@ export default function SettingsLayout({
             <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center transition-transform group-hover:rotate-6 shadow-sm">
               <Compass className="w-4 h-4 text-white" />
             </div>
-            <span className="text-xl font-bold tracking-tight">CareerX</span>
+            <span className="text-xl font-bold tracking-tight">Forfwd</span>
           </Link>
           <UserAccountNav />
         </nav>

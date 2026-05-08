@@ -16,8 +16,49 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CareerX Institute",
-  description: "Next-generation academic and career guidance platform.",
+  metadataBase: new URL('https://forfwd.com'),
+  alternates: {
+    canonical: '/',
+  },
+  title: "Forfwd — Move forward. Plan better.",
+  description: "Next-generation academic and career guidance platform leveraging Retrieval-Augmented Generation (RAG) to build personalized, real-time trajectories based on live job market and university data.",
+  keywords: [
+    "AI Career Advisor",
+    "Retrieval-Augmented Generation RAG",
+    "Career Roadmaps",
+    "ATS Resume Scanner",
+    "Skill Gap Analysis",
+    "AI Learning Trajectories",
+    "University Degree Navigator",
+    "Course Progress Tracker",
+    "Career Pivot Simulator",
+    "Forfwd",
+    "Interactive Orbit Map",
+    "Forfwd Career",
+    "Self-Guided Learning Roadmap"
+  ],
+  openGraph: {
+    title: "Forfwd — Move forward. Plan better.",
+    description: "Next-generation academic and career guidance platform leveraging Retrieval-Augmented Generation (RAG) to build personalized, real-time trajectories based on live job market and university data.",
+    url: "https://forfwd.com",
+    siteName: "Forfwd",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Forfwd Career Discovery Platform",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Forfwd — Move forward. Plan better.",
+    description: "Next-generation academic and career guidance platform leveraging Retrieval-Augmented Generation (RAG) to build personalized, real-time trajectories based on live job market and university data.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({
@@ -27,6 +68,34 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebApplication",
+              "name": "Forfwd",
+              "url": "https://forfwd.com",
+              "logo": "https://forfwd.com/logo.png",
+              "description": "Next-generation academic and career guidance platform leveraging Retrieval-Augmented Generation (RAG) to build personalized, real-time trajectories.",
+              "applicationCategory": "EducationalApplication, BusinessApplication",
+              "operatingSystem": "All",
+              "offers": {
+                "@type": "Offer",
+                "price": "0.00",
+                "priceCurrency": "USD"
+              },
+              "featureList": [
+                "Real-Time Market RAG Analysis",
+                "Interactive Orbit Trajectory Map",
+                "AI Career Advisory Concierge",
+                "ATS Compatibility Resume Scanner"
+              ]
+            })
+          }}
+        />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}>
         <ThemeProvider>
           {/* Dark mode ambient glow — only visible in dark mode, matches landing page aesthetic */}

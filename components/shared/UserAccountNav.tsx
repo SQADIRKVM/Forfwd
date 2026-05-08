@@ -12,6 +12,8 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { User, Settings, LogOut, LayoutDashboard, MessageSquare, FileSearch, Clock } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { useState } from "react";
+import { AuthModal } from "./AuthModal";
 import { useRouter } from "next/navigation";
 
 interface UserAccountNavProps {
@@ -22,13 +24,29 @@ interface UserAccountNavProps {
 export function UserAccountNav({ variant = "light" }: UserAccountNavProps) {
   const { data: session } = authClient.useSession();
   const router = useRouter();
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   const initials = session?.user?.name
     ? session.user.name.split(" ").map((n: string) => n[0]).join("").slice(0, 2).toUpperCase()
     : "U";
 
   if (!session?.user) {
-    return <ThemeToggle variant={variant} />;
+    return (
+      <div className="flex items-center gap-2">
+        <ThemeToggle variant={variant} />
+        <button
+          onClick={() => setIsAuthModalOpen(true)}
+          className={`px-6 py-2 h-10 rounded-full text-sm font-semibold hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer ${
+            variant === "dark"
+              ? "bg-white text-black hover:bg-zinc-100"
+              : "bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-zinc-100"
+          }`}
+        >
+          Sign In
+        </button>
+        <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+      </div>
+    );
   }
 
   const dropdownContentCls = variant === "dark"

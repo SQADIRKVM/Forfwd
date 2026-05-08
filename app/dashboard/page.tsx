@@ -15,6 +15,8 @@ import Link from 'next/link';
 import { getLatestReportAction, getAllReportsAction, updateReportMilestonesAction, deleteAllUserReportsAction } from '@/app/actions/report';
 import { addCourseAction, getTrackedCoursesAction } from '@/app/actions/trackedCourse';
 import { UserAccountNav } from '@/components/shared/UserAccountNav';
+import { authClient } from '@/lib/auth/client';
+import { AuthModal } from '@/components/shared/AuthModal';
 import { LearningHub } from '@/components/dashboard/LearningHub';
 import { MOCK_EXAMPLE_DATA } from '@/lib/mockReport';
 
@@ -1286,7 +1288,7 @@ function LoadingScreen({ onStop }: { onStop: () => void }) {
         <div className="relative z-10 min-h-screen bg-slate-100 dark:bg-zinc-950 text-slate-900 dark:text-zinc-50 flex flex-col font-sans selection:bg-indigo-100">
             <header className="w-full bg-white dark:bg-zinc-900 border-b border-slate-200 dark:border-zinc-800 px-6 py-4 flex items-center gap-2 sticky top-0 z-50">
                 <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center shadow-lg transform -rotate-3"><Compass className="w-5 h-5 text-white" /></div>
-                <span className="text-xl font-black tracking-tight text-slate-900 dark:text-white antialiased">CareerX</span>
+                <span className="text-xl font-black tracking-tight text-slate-900 dark:text-white antialiased">Forfwd</span>
             </header>
             <div className="flex-1 flex flex-col items-center justify-center px-6 py-12">
                 <div className="w-full max-w-md text-center">
@@ -1360,6 +1362,8 @@ interface ToastItem {
 
 export default function DashboardPage() {
     const router = useRouter();
+    const { data: session } = authClient.useSession();
+    const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
     const [toasts, setToasts] = useState<ToastItem[]>([]);
 
     const addToast = (message: string, type: 'success' | 'error' | 'info' = 'success') => {
@@ -1570,10 +1574,7 @@ export default function DashboardPage() {
                 <nav className="mx-auto flex max-w-[1500px] items-center justify-between px-4 py-3 md:px-6">
                     <div className="flex items-center gap-3">
                         <Link href="/" className="group flex items-center gap-3">
-                            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white text-black transition-transform group-hover:-rotate-3">
-                                <Compass className="h-5 w-5" />
-                            </div>
-                            <span className="hidden text-lg font-black tracking-tight text-slate-800 dark:text-white sm:block">CareerX</span>
+                            <img src="/banner.png" alt="Forfwd" className="h-15 w-auto object-contain transition-transform group-hover:scale-[1.02]" />
                         </Link>
                         <button onClick={() => router.back()} className="hidden items-center gap-2 rounded-lg border border-slate-200 dark:border-white/10 px-3 py-2 text-xs font-bold text-slate-500 dark:text-zinc-400 transition-colors hover:text-slate-800 dark:hover:text-white sm:flex">
                             <ArrowLeft className="h-4 w-4" />
@@ -1608,6 +1609,34 @@ export default function DashboardPage() {
                 </nav>
             </header>
 
+            {!session?.user && (
+                <div className="mx-auto max-w-[1400px] px-4 pt-6 md:px-6">
+                    <div className="relative overflow-hidden rounded-2xl border border-dashed border-indigo-600/30 bg-indigo-50/20 dark:bg-indigo-950/10 p-5 md:p-6 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+                        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 10% 20%, #4f46e5 0, transparent 40%)' }} />
+                        <div className="flex items-start gap-4">
+                            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-lg shadow-indigo-500/20">
+                                <Sparkles className="h-5 w-5" />
+                            </div>
+                            <div>
+                                <h3 className="text-sm font-black text-indigo-950 dark:text-indigo-400 uppercase tracking-wider mb-1 flex items-center gap-2">
+                                    💡 Guest Mode Enabled
+                                </h3>
+                                <p className="text-slate-600 dark:text-zinc-400 text-sm font-medium leading-relaxed max-w-3xl">
+                                    You are viewing this generated career trajectory report as a guest. <strong>Create a free account or sign in</strong> to permanently save this dashboard, chat with your AI counselor, track courses, and scan resumes!
+                                </p>
+                            </div>
+                        </div>
+                        <button
+                            onClick={() => setIsAuthModalOpen(true)}
+                            className="w-full md:w-auto shrink-0 flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all cursor-pointer"
+                        >
+                            <Zap className="w-4 h-4" /> Save This Report
+                        </button>
+                    </div>
+                    <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+                </div>
+            )}
+
             <div className="mx-auto max-w-[1400px] px-4 py-6 md:px-6">
                 <main className="min-w-0">
                     <motion.section initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="mb-8 overflow-hidden rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0f0f0f] shadow-sm dark:shadow-[0_28px_80px_rgba(0,0,0,0.34)]">
@@ -1620,7 +1649,7 @@ export default function DashboardPage() {
                                             <Compass className="h-5 w-5" />
                                         </div>
                                         <div className="min-w-0">
-                                            <p className="truncate text-base font-black text-slate-800 dark:text-white">CareerX Study Hub</p>
+                                            <p className="truncate text-base font-black text-slate-800 dark:text-white">Forfwd Study Hub</p>
                                             <p className="truncate text-[11px] font-bold text-zinc-500">{storeName || 'Explorer'} &middot; {detectedCat} profile</p>
                                         </div>
                                     </div>
