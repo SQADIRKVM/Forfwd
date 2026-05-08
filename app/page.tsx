@@ -579,6 +579,14 @@ export default function LandingPage() {
                         answer="An account is highly recommended! Signing up lets you save your reports to our secure cloud database, update your roadmap progress, and utilize our premium ATS resume optimizer."
                     />
                     <FAQItem 
+                        question="Can I track custom courses and playlists?" 
+                        answer="Yes, absolutely! The platform features an integrated My Learning Hub where you can add and track study resources from Udemy, Coursera, YouTube, or any custom URL. You can log progress, configure study plans, and organize your upskilling schedule in real-time."
+                    />
+                    <FAQItem 
+                        question="How does the ATS Resume Optimizer work?" 
+                        answer="Our advanced scanner analyzes your uploaded resume against real-time job profiles. It computes an overall compatibility score, identifies critical keyword gaps, and offers a single-click AI-powered 'Auto-Optimize' tool to rewrite your resume with a beautiful side-by-side comparative diff."
+                    />
+                    <FAQItem 
                         question="How accurate is the salary data?" 
                         answer="We do not rely on static tables. During your generation session, we run active searches on live databases to fetch contemporary, geographically specific salary curves."
                     />
