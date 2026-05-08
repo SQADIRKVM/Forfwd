@@ -116,6 +116,9 @@ export default function LandingPage() {
                   {item.label}
                 </button>
               ))}
+              <Link href="/blog" className="text-sm font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">
+                Blog
+              </Link>
             </div>
 
             <div className="flex items-center gap-3">
@@ -592,6 +595,62 @@ export default function LandingPage() {
             </div>
         </section>
 
+        {/* Blog Preview Section */}
+        <section className="py-28 px-6 md:px-12 border-t border-zinc-200 dark:border-white/5 bg-white dark:bg-[#050505]">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-col md:flex-row items-end justify-between gap-6 mb-14">
+              <div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-indigo-500/30 bg-indigo-500/10 mb-4 text-xs font-semibold text-indigo-600 dark:text-indigo-400">
+                  Career Intelligence Blog
+                </div>
+                <h2 className="text-3xl md:text-5xl font-black tracking-tight text-zinc-900 dark:text-white leading-tight">
+                  Real advice.<br className="hidden md:block" /> No fluff.
+                </h2>
+              </div>
+              <Link href="/blog" className="shrink-0 flex items-center gap-2 text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:underline underline-offset-4">
+                View all articles <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+            <div className="grid gap-6 md:grid-cols-3">
+              {[
+                {
+                  href: "/blog/how-to-switch-careers-without-starting-over",
+                  badge: "Career Pivots",
+                  badgeColor: "text-indigo-600 dark:text-indigo-400 bg-indigo-500/10 border-indigo-500/20",
+                  title: "How to Switch Careers Without Starting Over",
+                  excerpt: "Transfer your existing skills into a new field — without going back to square one.",
+                  readTime: "6 min",
+                },
+                {
+                  href: "/blog/beat-the-ats-resume-tips-that-actually-work",
+                  badge: "Resume Tips",
+                  badgeColor: "text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
+                  title: "Beat the ATS: Resume Tips That Actually Work in 2026",
+                  excerpt: "75% of resumes never reach a human. Here's how to make sure yours does.",
+                  readTime: "8 min",
+                },
+                {
+                  href: "/blog/build-a-self-guided-learning-roadmap",
+                  badge: "Learning Paths",
+                  badgeColor: "text-amber-600 dark:text-amber-400 bg-amber-500/10 border-amber-500/20",
+                  title: "How to Build a Learning Roadmap for High-Growth Tech Careers",
+                  excerpt: "You don't need a top-university degree to break into tech. You need a clear plan.",
+                  readTime: "7 min",
+                },
+              ].map((post) => (
+                <Link key={post.href} href={post.href} className="group block p-6 rounded-2xl border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-[#0f0f0f] hover:border-zinc-300 dark:hover:border-white/10 transition-all hover:shadow-md">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className={`px-2.5 py-1 rounded-md text-[10px] uppercase font-black tracking-wider border ${post.badgeColor}`}>{post.badge}</span>
+                    <span className="text-xs text-zinc-400 dark:text-zinc-600">{post.readTime} read</span>
+                  </div>
+                  <h3 className="text-base font-black tracking-tight text-zinc-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors leading-snug">{post.title}</h3>
+                  <p className="text-zinc-500 dark:text-zinc-500 text-sm leading-relaxed">{post.excerpt}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* CTA */}
         <section className="py-44 px-6 md:px-12 relative overflow-hidden flex justify-center border-t border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-[#080808]">
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-indigo-950/20 pointer-events-none" />
@@ -624,7 +683,8 @@ export default function LandingPage() {
               <img src="/banner.png" alt="Forfwd" className="h-10 w-auto object-contain block dark:hidden opacity-50 hover:opacity-100 transition-all duration-300" />
               <img src="/banner-dark.png" alt="Forfwd" className="h-10 w-auto object-contain hidden dark:block opacity-40 hover:opacity-100 transition-all duration-300" />
             </div>
-            <div className="flex gap-8 text-sm font-medium text-zinc-500 dark:text-zinc-600">
+            <div className="flex flex-wrap gap-8 text-sm font-medium text-zinc-500 dark:text-zinc-600">
+              <Link href="/blog" className="hover:text-zinc-900 dark:hover:text-white transition-colors">Blog</Link>
               <Link href="/docs" className="hover:text-zinc-900 dark:hover:text-white transition-colors">Documentation</Link>
               <Link href="/privacy" className="hover:text-zinc-900 dark:hover:text-white transition-colors">Privacy Policy</Link>
               <Link href="/terms" className="hover:text-zinc-900 dark:hover:text-white transition-colors">Terms of Service</Link>
