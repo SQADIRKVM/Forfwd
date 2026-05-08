@@ -87,26 +87,25 @@ export default function LandingPage() {
   };
   
   return (
-    <div ref={containerRef} className="relative w-full min-h-screen bg-[#050505] text-zinc-50 font-sans selection:bg-indigo-500/30 selection:text-white overflow-hidden">
+    <div ref={containerRef} className="relative w-full min-h-screen bg-white dark:bg-[#050505] text-zinc-900 dark:text-zinc-50 font-sans selection:bg-indigo-500/30 selection:text-white overflow-hidden">
       
       {/* Dynamic Background */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-indigo-600/10 rounded-full blur-[120px] mix-blend-screen" />
-        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-violet-600/10 rounded-full blur-[120px] mix-blend-screen" />
-        <div className="absolute top-[40%] left-[60%] w-[30%] h-[30%] bg-blue-500/5 rounded-full blur-[100px] mix-blend-screen" />
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03] mix-blend-overlay" />
+      <div className="fixed inset-0 z-0 pointer-events-none opacity-60 dark:opacity-100">
+        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-indigo-500/5 dark:bg-indigo-600/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-violet-500/5 dark:bg-violet-600/10 rounded-full blur-[120px]" />
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.02] dark:opacity-[0.03] mix-blend-overlay" />
       </div>
 
       <div className="relative z-10 flex flex-col min-h-screen">
 
-        {/* Minimalist Header */}
-        <header className="w-full border-b border-white/5 bg-black/40 backdrop-blur-xl sticky top-0 z-50">
+         {/* Minimalist Header */}
+        <header className="w-full border-b border-zinc-200 dark:border-white/5 bg-white/60 dark:bg-black/40 backdrop-blur-xl sticky top-0 z-50">
           <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4 md:px-12">
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-8 h-8 rounded-lg bg-zinc-900 border border-white/10 flex items-center justify-center transition-transform group-hover:scale-105 group-hover:border-white/20">
-                <Compass className="w-4 h-4 text-zinc-100" />
+              <div className="w-8 h-8 rounded-lg bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-white/10 flex items-center justify-center transition-transform group-hover:scale-105 group-hover:border-zinc-300 dark:group-hover:border-white/20">
+                <Compass className="w-4 h-4 text-zinc-900 dark:text-zinc-100" />
               </div>
-              <span className="text-xl font-semibold tracking-tight">CareerX</span>
+              <span className="text-xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">CareerX</span>
             </Link>
             
             <div className="hidden md:flex items-center gap-8">
@@ -115,7 +114,7 @@ export default function LandingPage() {
                   { label: 'Features', id: 'features' },
                   { label: 'FAQ', id: 'faq' }
               ].map((item) => (
-                <button key={item.label} onClick={() => scrollTo(item.id)} className="text-sm font-medium text-zinc-400 hover:text-white transition-colors">
+                <button key={item.label} onClick={() => scrollTo(item.id)} className="text-sm font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer">
                   {item.label}
                 </button>
               ))}
@@ -125,14 +124,14 @@ export default function LandingPage() {
               {!session ? (
                 <div className="flex items-center gap-3">
                   <UserAccountNav variant="dark" />
-                  <Button onClick={() => setIsAuthModalOpen(true)} className="bg-white hover:bg-zinc-200 text-black rounded-full px-6 h-10 transition-all font-medium text-sm">
+                  <Button onClick={() => setIsAuthModalOpen(true)} className="bg-zinc-900 dark:bg-white hover:bg-zinc-800 dark:hover:bg-zinc-200 text-white dark:text-black rounded-full px-6 h-10 transition-all font-medium text-sm cursor-pointer">
                     Sign In
                   </Button>
                 </div>
               ) : (
                 <div className="flex items-center gap-3">
                   <Link href="/dashboard">
-                    <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-full px-6 h-10 transition-all font-medium text-sm">
+                    <Button className="bg-zinc-100 dark:bg-white/10 hover:bg-zinc-200 dark:hover:bg-white/20 text-zinc-900 dark:text-white border border-zinc-200 dark:border-white/20 rounded-full px-6 h-10 transition-all font-medium text-sm">
                       Dashboard
                     </Button>
                   </Link>
@@ -154,7 +153,7 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 mb-8 text-sm font-medium text-zinc-300 backdrop-blur-md shadow-xl"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-zinc-200 dark:border-white/10 bg-white/50 dark:bg-white/5 mb-8 text-sm font-medium text-zinc-700 dark:text-zinc-300 backdrop-blur-md shadow-xl"
             >
               <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
               Secure, Private, and AI-Powered.
@@ -164,17 +163,17 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="text-5xl md:text-7xl lg:text-[6.5rem] font-semibold tracking-tighter mb-8 text-white leading-[1.05]"
+              className="text-5xl md:text-7xl lg:text-[6.5rem] font-semibold tracking-tighter mb-8 text-zinc-900 dark:text-white leading-[1.05]"
             >
               Stop guessing your <br/>
-              <span className="text-zinc-500">career path.</span>
+              <span className="text-zinc-400 dark:text-zinc-500">career path.</span>
             </motion.h1>
 
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="text-lg md:text-2xl text-zinc-400 max-w-2xl mx-auto mb-12 font-normal leading-relaxed tracking-tight"
+              className="text-lg md:text-2xl text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto mb-12 font-normal leading-relaxed tracking-tight"
             >
               We scan thousands of live job postings and university requirements to build a clear, step-by-step roadmap for your exact situation. No generic advice.
             </motion.p>
@@ -186,20 +185,20 @@ export default function LandingPage() {
               className="flex justify-center items-center flex-col sm:flex-row gap-4"
             >
               {!session ? (
-                <Button onClick={() => setIsAuthModalOpen(true)} className="h-14 px-10 rounded-full font-medium text-base bg-white text-black hover:bg-zinc-200 transition-all flex items-center justify-center gap-2 group shadow-[0_0_40px_rgba(255,255,255,0.1)] hover:shadow-[0_0_60px_rgba(255,255,255,0.2)]">
+                <Button onClick={() => setIsAuthModalOpen(true)} className="h-14 px-10 rounded-full font-medium text-base bg-zinc-900 dark:bg-white text-white dark:text-black hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all flex items-center justify-center gap-2 group shadow-[0_4px_20px_rgba(0,0,0,0.1)] dark:shadow-[0_0_40px_rgba(255,255,255,0.1)]">
                   Sign In to Start
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               ) : (
                 <Link href="/dashboard">
-                  <Button className="h-14 px-10 rounded-full font-medium text-base bg-white text-black hover:bg-zinc-200 transition-all flex items-center justify-center gap-2 group shadow-[0_0_40px_rgba(255,255,255,0.1)] hover:shadow-[0_0_60px_rgba(255,255,255,0.2)]">
+                  <Button className="h-14 px-10 rounded-full font-medium text-base bg-zinc-900 dark:bg-white text-white dark:text-black hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all flex items-center justify-center gap-2 group shadow-[0_4px_20px_rgba(0,0,0,0.1)] dark:shadow-[0_0_40px_rgba(255,255,255,0.1)]">
                     Go to Dashboard
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
               )}
-              <Link href="/dashboard">
-                <Button variant="outline" className="h-14 px-10 rounded-full font-medium text-base border-white/10 text-white bg-white/5 hover:bg-white/10 backdrop-blur-md transition-all flex items-center justify-center gap-2">
+              <Link href="/dashboard?example=true">
+                <Button variant="outline" className="h-14 px-10 rounded-full font-medium text-base border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white bg-white/50 dark:bg-white/5 hover:bg-zinc-100 dark:hover:bg-white/10 backdrop-blur-md transition-all flex items-center justify-center gap-2">
                   <PlayCircle className="w-5 h-5 text-zinc-400" />
                   View an Example
                 </Button>
@@ -207,7 +206,7 @@ export default function LandingPage() {
             </motion.div>
           </div>
           
-          <div className="absolute bottom-0 w-full h-48 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none" />
+          <div className="absolute bottom-0 w-full h-48 bg-gradient-to-t from-white dark:from-[#050505] to-transparent pointer-events-none" />
         </motion.section>
 
         {/* Who is this for? */}

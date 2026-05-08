@@ -16,6 +16,7 @@ import { getLatestReportAction, getAllReportsAction, updateReportMilestonesActio
 import { addCourseAction, getTrackedCoursesAction } from '@/app/actions/trackedCourse';
 import { UserAccountNav } from '@/components/shared/UserAccountNav';
 import { LearningHub } from '@/components/dashboard/LearningHub';
+import { MOCK_EXAMPLE_DATA } from '@/lib/mockReport';
 
 // ─── helpers ────────────────────────────────────────────────────────
 
@@ -1416,6 +1417,15 @@ export default function DashboardPage() {
         abortControllerRef.current = controller;
         const fetchDashboardData = async () => {
             try {
+                // Check if user requested to view an example report
+                const isExample = typeof window !== 'undefined' && window.location.search.includes('example=true');
+                if (isExample) {
+                    console.log('📝 Loading high-fidelity Mock Example Report');
+                    setData(MOCK_EXAMPLE_DATA);
+                    setLoading(false);
+                    return;
+                }
+
                 // ── 1. Check Neon DB for existing report ─────────────────────
                 const reports = await getAllReportsAction();
                 if (reports.length > 0 && !controller.signal.aborted) {
