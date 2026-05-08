@@ -166,7 +166,7 @@ export default function LandingPage() {
               className="text-5xl md:text-7xl lg:text-[6.5rem] font-semibold tracking-tighter mb-8 text-zinc-900 dark:text-white leading-[1.05]"
             >
               Stop guessing your <br/>
-              <span className="text-zinc-400 dark:text-zinc-500">career path.</span>
+              <span className="text-indigo-600 dark:text-indigo-400 font-extrabold">career path.</span>
             </motion.h1>
 
             <motion.p 
@@ -198,15 +198,13 @@ export default function LandingPage() {
                 </Link>
               )}
               <Link href="/dashboard?example=true">
-                <Button variant="outline" className="h-14 px-10 rounded-full font-medium text-base border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white bg-white/50 dark:bg-white/5 hover:bg-zinc-100 dark:hover:bg-white/10 backdrop-blur-md transition-all flex items-center justify-center gap-2">
+                <Button variant="outline" className="h-14 px-10 rounded-full font-medium text-base border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white bg-zinc-50 dark:bg-white/5 hover:bg-zinc-100 dark:hover:bg-white/10 backdrop-blur-md transition-all flex items-center justify-center gap-2">
                   <PlayCircle className="w-5 h-5 text-zinc-400" />
                   View an Example
                 </Button>
               </Link>
             </motion.div>
           </div>
-          
-          <div className="absolute bottom-0 w-full h-48 bg-gradient-to-t from-white dark:from-[#050505] to-transparent pointer-events-none" />
         </motion.section>
 
         {/* Who is this for? */}
