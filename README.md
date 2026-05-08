@@ -114,7 +114,7 @@ To position **Forfwd** (`Move forward. Plan better.`) as a market-leading SaaS a
 
 While Vercel's default subdomains (`forfwd.vercel.app`) are excellent for development and staging, they are highly detrimental to production-level SEO:
 
-| Metric / Aspect | Vercel Subdomain (`forfwd.vercel.app`) | Custom Domain (`forfwd.com`) |
+| Metric / Aspect | Vercel Subdomain (`forfwd.vercel.app`) | Custom Domain (`forfwd.tech`) |
 | :--- | :--- | :--- |
 | **Domain Authority (DA) Accumulation** | All backlinks and organic authority are credited to **Vercel's parent domain** (`vercel.app`), not your business. | **100% of backlinks, referral equity, and brand authority** accumulate directly to your unique domain. |
 | **Search Engine Trust & Spam Signals** | Google and major search engines treat free subdomains with suspicion due to high rates of temporary, unverified spam deployments. | High trust. Buying and maintaining a top-level domain (TLD) signals long-term intent and business legitimacy. |
@@ -123,8 +123,8 @@ While Vercel's default subdomains (`forfwd.vercel.app`) are excellent for develo
 
 #### Strategic Domain Purchasing Recommendations
 
-1. **Prioritize `.com`:** If `forfwd.com` is available, purchase it immediately. If not, highly trusted modern alternates include **`forfwd.co`**, **`forfwd.io`**, or **`forfwd.app`**.
-2. **Where to Buy:** Use reputable registrars that include free SSL and WHOIS privacy protection, such as **Porkbun**, **Namecheap**, or **Google Domains / Squarespace**.
+1. **Prioritize TLDs like `.tech` or `.com`:** If `forfwd.com` is taken, highly trusted modern alternates like **`forfwd.tech`**, **`forfwd.co`**, or **`forfwd.io`** are excellent choices.
+2. **Where to Buy:** Use reputable registrars that include free SSL and WHOIS privacy protection, such as **Porkbun**, **Namecheap**, or **Google Domains / Squarespace** (as used for `forfwd.tech`).
 
 ---
 
@@ -145,10 +145,10 @@ graph TD
 * **What it is:** Google's direct dashboard for webmasters.
 * **Onboarding Steps:**
   1. Go to [Google Search Console](https://search.google.com/search-console).
-  2. Add your custom domain using the **Domain Method** (e.g., `forfwd.com`).
+  2. Add your custom domain using the **Domain Method** (e.g., `forfwd.tech`).
   3. Copy the TXT record provided by Google and paste it into your registrar's DNS settings.
   4. Once verified, navigate to **Sitemaps** on the left panel.
-  5. Submit your dynamic sitemap URL: `https://forfwd.com/sitemap.xml`.
+  5. Submit your dynamic sitemap URL: `https://forfwd.tech/sitemap.xml`.
 
 #### 2. Dynamic app/sitemap.ts
 Next.js supports automatic sitemap generation out-of-the-box. We have integrated `app/sitemap.ts` to automatically expose public routes, updating dynamic frequencies on-the-fly.
