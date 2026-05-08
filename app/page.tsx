@@ -102,7 +102,8 @@ export default function LandingPage() {
         <header className="w-full border-b border-zinc-200 dark:border-white/5 bg-white/60 dark:bg-black/40 backdrop-blur-xl sticky top-0 z-50">
           <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4 md:px-12">
             <Link href="/" className="flex items-center gap-3 group">
-              <img src="/banner.png" alt="Forfwd" className="h-15 w-auto object-contain transition-transform group-hover:scale-[1.02]" />
+              <img src="/banner.png" alt="Forfwd" className="h-15 w-auto object-contain block dark:hidden transition-transform group-hover:scale-[1.02]" />
+              <img src="/banner-dark.png" alt="Forfwd" className="h-15 w-auto object-contain hidden dark:block transition-transform group-hover:scale-[1.02]" />
             </Link>
             
             <div className="hidden md:flex items-center gap-8">
@@ -620,7 +621,8 @@ export default function LandingPage() {
         <footer className="py-12 px-6 md:px-12 border-t border-zinc-200 dark:border-white/5 bg-zinc-100 dark:bg-black">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-3">
-              <img src="/banner.png" alt="Forfwd" className="h-10 w-auto object-contain opacity-50 dark:opacity-40 hover:opacity-100 transition-all duration-300" />
+              <img src="/banner.png" alt="Forfwd" className="h-10 w-auto object-contain block dark:hidden opacity-50 hover:opacity-100 transition-all duration-300" />
+              <img src="/banner-dark.png" alt="Forfwd" className="h-10 w-auto object-contain hidden dark:block opacity-40 hover:opacity-100 transition-all duration-300" />
             </div>
             <div className="flex gap-8 text-sm font-medium text-zinc-500 dark:text-zinc-600">
               <Link href="/docs" className="hover:text-zinc-900 dark:hover:text-white transition-colors">Documentation</Link>

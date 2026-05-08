@@ -1574,7 +1574,8 @@ export default function DashboardPage() {
                 <nav className="mx-auto flex max-w-[1500px] items-center justify-between px-4 py-3 md:px-6">
                     <div className="flex items-center gap-3">
                         <Link href="/" className="group flex items-center gap-3">
-                            <img src="/banner.png" alt="Forfwd" className="h-15 w-auto object-contain transition-transform group-hover:scale-[1.02]" />
+                            <img src="/banner.png" alt="Forfwd" className="h-15 w-auto object-contain block dark:hidden transition-transform group-hover:scale-[1.02]" />
+                            <img src="/banner-dark.png" alt="Forfwd" className="h-15 w-auto object-contain hidden dark:block transition-transform group-hover:scale-[1.02]" />
                         </Link>
                         <button onClick={() => router.back()} className="hidden items-center gap-2 rounded-lg border border-slate-200 dark:border-white/10 px-3 py-2 text-xs font-bold text-slate-500 dark:text-zinc-400 transition-colors hover:text-slate-800 dark:hover:text-white sm:flex">
                             <ArrowLeft className="h-4 w-4" />

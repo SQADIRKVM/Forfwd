@@ -76,7 +76,8 @@ export function AuthModal({ isOpen, onClose, defaultView = "signin" }: AuthModal
 
         <div className="p-8 md:p-10 relative z-10">
           <div className="flex justify-center mb-6">
-            <img src="/banner.png" alt="Forfwd" className="h-15 w-auto object-contain" />
+            <img src="/banner.png" alt="Forfwd" className="h-15 w-auto object-contain block dark:hidden" />
+            <img src="/banner-dark.png" alt="Forfwd" className="h-15 w-auto object-contain hidden dark:block" />
           </div>
 
           <div className="text-center mb-8">
