@@ -118,6 +118,15 @@ export default function RootLayout({
               })(window, document, "clarity", "script", "wo2xe73y8n");
             `}
           </Script>
+          <Script src="https://www.googletagmanager.com/gtag/js?id=G-W43CDKGCKV" strategy="afterInteractive" />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-W43CDKGCKV');
+            `}
+          </Script>
           {/* Dark mode ambient glow — only visible in dark mode, matches landing page aesthetic */}
           <div className="hidden dark:block fixed inset-0 z-0 pointer-events-none" aria-hidden>
             <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-indigo-600/10 rounded-full blur-[120px] mix-blend-screen" />
