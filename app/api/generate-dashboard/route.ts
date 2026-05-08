@@ -73,7 +73,8 @@ RULES:
             'dictionary.com', 'merriam-webster.com', 'thesaurus.com', 
             'oxfordlearnersdictionaries.com', 'cambridge.org', 'wiktionary.org',
             'collinsdictionary.com', 'definitions.net', 'vocabulary.com', 'wordsmyth.net',
-            'ell.stackexchange.com', 'english.stackexchange.com', 'cppreference.com', 'stackoverflow.com'
+            'ell.stackexchange.com', 'english.stackexchange.com', 'cppreference.com', 'stackoverflow.com',
+            'wordreference.com', 'oed.com', 'wordwebonline.com', 'kimi.moonshot.cn'
         ];
 
         const seenUrls = new Set<string>();
