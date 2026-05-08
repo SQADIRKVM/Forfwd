@@ -4,6 +4,7 @@ import "./globals.css";
 import SmoothScroll from "@/components/shared/SmoothScroll";
 import { ThemeProvider } from "@/components/shared/ThemeProvider";
 import { Toaster } from "sonner";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -130,6 +131,7 @@ export default function RootLayout({
               }
             }}
           />
+          <SpeedInsights />
         </ThemeProvider>
       </body>
     </html>
