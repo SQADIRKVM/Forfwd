@@ -6,7 +6,6 @@ import {
   Search, Globe, PlayCircle, ExternalLink, Lock, CheckCircle2, TrendingUp, GraduationCap, Briefcase, RefreshCw, ChevronDown, Check, X, Activity
 } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { authClient } from "@/lib/auth/client";
@@ -103,22 +102,8 @@ export default function LandingPage() {
         <header className="w-full border-b border-zinc-200 dark:border-white/5 bg-white/60 dark:bg-black/40 backdrop-blur-xl sticky top-0 z-50">
           <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4 md:px-12">
             <Link href="/" className="flex items-center gap-3 group">
-              <Image
-                src="/banner.png"
-                alt="Forfwd — Move forward. Plan better."
-                width={160}
-                height={40}
-                className="h-10 w-auto object-contain block dark:hidden transition-transform group-hover:scale-[1.02]"
-                priority
-              />
-              <Image
-                src="/banner-dark.png"
-                alt="Forfwd — Move forward. Plan better."
-                width={160}
-                height={40}
-                className="h-10 w-auto object-contain hidden dark:block transition-transform group-hover:scale-[1.02]"
-                priority
-              />
+              <img src="/banner.png" alt="Forfwd" className="h-15 w-auto object-contain block dark:hidden transition-transform group-hover:scale-[1.02]" />
+              <img src="/banner-dark.png" alt="Forfwd" className="h-15 w-auto object-contain hidden dark:block transition-transform group-hover:scale-[1.02]" />
             </Link>
             
             <div className="hidden md:flex items-center gap-8">
@@ -153,7 +138,6 @@ export default function LandingPage() {
           </nav>
         </header>
 
-        <main id="main-content">
         {/* Hero Section: Parallax */}
         <motion.section 
           style={{ y, opacity }}
@@ -691,14 +675,13 @@ export default function LandingPage() {
             </motion.div>
           </div>
         </section>
-        </main>
 
         {/* Minimal Footer */}
         <footer className="py-12 px-6 md:px-12 border-t border-zinc-200 dark:border-white/5 bg-zinc-100 dark:bg-black">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-3">
-              <Image src="/banner.png" alt="Forfwd" width={120} height={32} className="h-10 w-auto object-contain block dark:hidden opacity-50 hover:opacity-100 transition-all duration-300" />
-              <Image src="/banner-dark.png" alt="Forfwd" width={120} height={32} className="h-10 w-auto object-contain hidden dark:block opacity-40 hover:opacity-100 transition-all duration-300" />
+              <img src="/banner.png" alt="Forfwd" className="h-10 w-auto object-contain block dark:hidden opacity-50 hover:opacity-100 transition-all duration-300" />
+              <img src="/banner-dark.png" alt="Forfwd" className="h-10 w-auto object-contain hidden dark:block opacity-40 hover:opacity-100 transition-all duration-300" />
             </div>
             <div className="flex flex-wrap gap-8 text-sm font-medium text-zinc-500 dark:text-zinc-600">
               <Link href="/blog" className="hover:text-zinc-900 dark:hover:text-white transition-colors">Blog</Link>
